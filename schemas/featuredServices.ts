@@ -14,37 +14,70 @@ const featuredServices = {
         Rule.required().max(50).error("Maximum 50 Characters"),
     }),
     defineField({
+      name: "slug",
+      type: "slug",
+      options: {
+        source: "name",
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "isActive",
+      title: "isActive",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (Rule) =>
+        Rule.required().max(100).error("Maximum 100 Characters"),
+    }),
+    defineField({
       name: "description",
       title: "Description",
-      type: "text",
+      type: "string",
       validation: (Rule) =>
         Rule.required().min(100).error("Minimum 100 Characters"),
     }),
     defineField({
       name: "metric1Name",
       title: "Metric1Name",
-      type: "text",
+      type: "string",
       validation: (Rule) =>
-        Rule.required().min(100).error("Minimum 25 Characters"),
+        Rule.required().max(50).error("Maximum 50 Characters"),
     }),
     defineField({
       name: "metric1Value",
       title: "Metric1Value",
       type: "number",
-      validation: (Rule) => Rule.required().min(1).error("Minimum value is 1"),
+    }),
+    defineField({
+      name: "metric1TrailingText",
+      title: "Metric1TrailingText",
+      type: "string",
+      validation: (Rule) =>
+        Rule.required().max(7).error("Maximum 7 characters"),
     }),
     defineField({
       name: "metric2Name",
       title: "Metric2Name",
-      type: "text",
+      type: "string",
       validation: (Rule) =>
-        Rule.required().min(100).error("Minimum 25 Characters"),
+        Rule.required().max(25).error("Maximum 25 Characters"),
     }),
     defineField({
       name: "metric2Value",
       title: "Metric2Value",
       type: "number",
-      validation: (Rule) => Rule.required().min(1).error("Minimum value is 1"),
+    }),
+    defineField({
+      name: "metric2TrailingText",
+      title: "Metric2TrailingText",
+      type: "string",
+      validation: (Rule) =>
+        Rule.required().max(7).error("Maximum 7 characters"),
     }),
     defineField({
       name: "images",
@@ -74,7 +107,7 @@ const featuredServices = {
     defineField({
       name: "hookText",
       title: "Hook Text",
-      type: "text",
+      type: "string",
       validation: (Rule) => Rule.required(),
       initialValue: "Know More",
     }),

@@ -1,5 +1,6 @@
 import account from "./account";
 import booking from "./booking";
+import featuredServices from "./featuredServices";
 import hotelRoom from "./hotelRoom";
 import review from "./review";
 import user from "./user";
@@ -13,4 +14,5 @@ export const schemaTypes = [
   hotelRoom,
   review,
   verificationToken,
+  featuredServices,
 ];
