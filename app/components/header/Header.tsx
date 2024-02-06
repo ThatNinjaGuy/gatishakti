@@ -70,10 +70,10 @@ const Header = () => {
           <Link href="/">Home</Link>
         </li>
         <li className="hover:-translate-y-2 duration-500 transition-all">
-          <Link href="/ideas">CSR Projects</Link>
+          <Link href="/ideas">Raw Materials</Link>
         </li>
         <li className="hover:-translate-y-2 duration-500 transition-all">
-          <Link href="/">Contact</Link>
+          <Link href="/">Services</Link>
         </li>
       </ul>
     </header>

@@ -20,16 +20,20 @@ const ClientComponent: FC<Props> = (props) => {
         {/* Room Count with animation */}
         <div className="flex justify-between mt-12">
           <div className="flex gap-3 flex-col items-center justify-center">
-            <p className="text-xs lg:text-xl text-center">Total Funds Raised</p>
-            <CountUpNumber duration={2000} endValue={2198000} />
+            <p className="text-xs lg:text-xl text-center">Projects Delivery</p>
+            <CountUpNumber
+              duration={1000}
+              endValue={219}
+              trailingText={"Cr+"}
+            />
           </div>
           <div className="flex gap-3 flex-col items-center justify-center">
-            <p className="text-xs lg:text-xl text-center">Partners in Change</p>
-            <CountUpNumber duration={2000} endValue={3200} />
+            <p className="text-xs lg:text-xl text-center">Total Homes</p>
+            <CountUpNumber duration={1000} endValue={32} trailingText="+" />
           </div>
           <div className="flex gap-3 flex-col items-center justify-center">
-            <p className="text-xs lg:text-xl text-center">Projects Completed</p>
-            <CountUpNumber duration={2000} endValue={923} />
+            <p className="text-xs lg:text-xl text-center">Total Vendors</p>
+            <CountUpNumber duration={1000} endValue={923} trailingText="+" />
           </div>
         </div>
       </div>

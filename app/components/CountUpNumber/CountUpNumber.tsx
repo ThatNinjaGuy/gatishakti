@@ -3,9 +3,10 @@ import { FC, useEffect, useState } from "react";
 type Props = {
   endValue: number;
   duration: number;
+  trailingText: string;
 };
 
-const CountUpNumber: FC<Props> = ({ endValue, duration }) => {
+const CountUpNumber: FC<Props> = ({ endValue, duration, trailingText }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -30,7 +31,8 @@ const CountUpNumber: FC<Props> = ({ endValue, duration }) => {
   }, [endValue, duration]);
   return (
     <p className="md:font-bold font-medium text-lg xl:text-5xl">
-      {Math.round(count)}+
+      {Math.round(count)}
+      {trailingText}
     </p>
   );
 };

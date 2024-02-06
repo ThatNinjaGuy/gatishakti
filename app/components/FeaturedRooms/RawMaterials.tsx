@@ -1,13 +1,15 @@
+"use client";
 import { Room } from "@/models/room";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
+import CountUpNumber from "../CountUpNumber/CountUpNumber";
 
 type Props = {
   featuredRoom: Room;
 };
 
-const FeaturedRoom: FC<Props> = (props) => {
+const RawMaterials: FC<Props> = (props) => {
   const { featuredRoom } = props;
   return (
     <section className="flex md:flex-row flex-col px-4 py-10 items-center gap-12 container mx-auto">
@@ -36,31 +38,38 @@ const FeaturedRoom: FC<Props> = (props) => {
         </div>
       </div>
       <div className="md:py-10 md:w-1/2 text-left">
-        <h3 className="font-heading mb-10">Project Spotlight</h3>
+        <h3 className="font-heading mb-10">Buy Construction Material</h3>
         <p className="mb-2 text-tertiary-dark font-semibold text-[20px]">
           {featuredRoom.name}
         </p>
         <p className="font-normal">{featuredRoom.description}</p>
-        <div className="flex flex-col md:flex-row md:items-end justify-between mt-10">
+        <p className="font-normal mt-5 text-tertiary-dark dark:text-tertiary-light">
+          {"In Your Neighbourhood, we provide  🚜"}
+        </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mt-2">
           <div className="flex mb-3 md:mb-0">
             <div className="flex gap-3 flex-col items-center justify-center mr-4">
-              <p className="text-xs lg:text-xl text-center">Donations</p>
-              <p className="sm:font-bold font-mediumflex font-medium text-lg xl:text-5xl">
-                ₹ {featuredRoom.price / 1000} Mn+
-              </p>
+              <p className="text-xs lg:text-xl text-center">Products</p>
+              {/* <p className="sm:font-bold font-mediumflex font-medium text-lg xl:text-5xl"> */}
+              <CountUpNumber endValue={45} duration={1000} trailingText={"+"} />
+              {/* </p>  */}
             </div>
             <div className="flex gap-3 flex-col items-center justify-center ml-4">
-              <p className="text-xs lg:text-xl text-center">Scholarships</p>
-              <p className="sm:font-bold flex font-medium text-lg xl:text-5xl">
-                {featuredRoom.discount}+
-              </p>
+              <p className="text-xs lg:text-xl text-center">Vendors</p>
+              {/* <p className="sm:font-bold flex font-medium text-lg xl:text-5xl"> */}
+              <CountUpNumber
+                endValue={100}
+                duration={1000}
+                trailingText={"+"}
+              />
+              {/* </p> */}
             </div>
           </div>
           <Link
             href={`/ideas/${featuredRoom.slug.current}`}
             className="border h-fit text-center border-tertiary-dark text-tertiary-dark px-3 py-2 lg:py-5 lg:px-7 wounded-2xl font-bold lg:text-xl"
           >
-            More Details
+            {"Buy Materials"}
           </Link>
         </div>
       </div>
@@ -68,4 +77,4 @@ const FeaturedRoom: FC<Props> = (props) => {
   );
 };
 
-export default FeaturedRoom;
+export default RawMaterials;
