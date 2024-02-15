@@ -6,7 +6,8 @@ const NewsLetter = () => {
           Sign Up for Our Newsletter
         </h6>
         <p className="md:font-semibold text-lg md:text-xl text-center">
-          Be a part of the journey towards a brighter future. Sign up today!
+          Plan your dream home with our innovative ideas that suit your modern
+          needs. Sign up today!
         </p>
 
         <div className="flex-col justify-center w-full md:flex-row flex pt-12">

@@ -92,7 +92,8 @@ const featuredServices = {
           ],
         },
       ],
-      validation: (Rule) => Rule.required().min(2).error("2 images required"),
+      validation: (Rule) =>
+        Rule.required().min(2).max(2).error("2 images required"),
     }),
     defineField({
       name: "coverImage",

@@ -24,11 +24,11 @@ const FeaturedService: FC<Props> = (props) => {
           />
         </div>
         <div className="grid grid-cols-2 gap-8 h-48">
-          {featuredService.images.splice(1, 2).map((image) => (
-            <div key={image._key} className="rounded-2xl overflow-hidden">
+          {featuredService.images.map((image, index) => (
+            <div key={index} className="rounded-2xl overflow-hidden">
               <Image
                 src={image.url}
-                alt={image._key}
+                alt={index + "_sampleImage"}
                 width={300}
                 height={300}
                 className="img scale-animation"
