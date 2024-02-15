@@ -51,7 +51,7 @@ yarn install
 yarn start
 ```
 
-Access the application at [http://localhost:8000](http://localhost:8000) to view the CSR projects and access the CMS.
+Access the application at [http://localhost:8000](http://localhost:8000).
 
 ## Deploying to Cloud Services
 
