@@ -24,7 +24,9 @@ const Search: FC<Props> = ({
   };
 
   const handleFilterClick = () => {
-    router.push(`/ideas?roomType=${roomTypeFilter}&searchQuery=${searchQuery}`);
+    router.push(
+      `/materials?roomType=${roomTypeFilter}&searchQuery=${searchQuery}`
+    );
   };
 
   return (

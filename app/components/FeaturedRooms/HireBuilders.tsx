@@ -70,7 +70,7 @@ const HireBuilders: FC<Props> = (props) => {
             </div>
           </div>
           <Link
-            href={`/ideas/${featuredRoom.slug.current}`}
+            href={`/materials/${featuredRoom.slug.current}`}
             className="border h-fit text-center border-tertiary-dark text-tertiary-dark px-3 py-2 lg:py-5 lg:px-7 wounded-2xl font-bold lg:text-xl"
           >
             Hire Masions

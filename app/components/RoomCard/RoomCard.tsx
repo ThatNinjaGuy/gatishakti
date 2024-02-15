@@ -1,4 +1,5 @@
 import { Room } from "@/models/room";
+import { shortenDisplayText } from "@/utils/textProcessing";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
@@ -9,10 +10,16 @@ type Props = {
 
 const RoomCard: FC<Props> = (props) => {
   const {
-    room: { coverImage, name, type, description, slug, isBooked },
+    room: { coverImage, name, price, description, slug },
   } = props;
   return (
-    <div className="flex flex-col rounded-xl w-72 mb-10 mx-auto md:mx-0 overflow-hidden text-black">
+    <div
+      className="flex flex-col rounded-xl w-72 mb-10 mx-auto md:mx-0 overflow-hidden text-black"
+      style={{
+        boxShadow:
+          "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)",
+      }}
+    >
       <div className="h-60 overflow-hidden">
         <Image
           src={coverImage.url}
@@ -28,18 +35,19 @@ const RoomCard: FC<Props> = (props) => {
             <p>{name}</p>
             {/* Price can be shown here if needed */}
           </div>
-          <p className="pt-2 text-xs">{type} Room</p>
+          {/* <p className="pt-2 text-xs">{type} Room</p> */}
           {/* Set a fixed number of lines for the description */}
           {/* <p className="pt-3 pb-6 overflow-hidden text-xs line-clamp-N">
             {description}
           </p> */}
-          <p className="pt-3 pb-6">{description.slice(1, 100)}...</p>
+          <p className="pt-3 pb-6">{shortenDisplayText(description, 150)}</p>
         </div>
         <Link
-          href={`/ideas/${slug.current}`}
+          href={`/materials/${slug.current}`}
           className="bg-primary mt-4 inline-block text-center w-full py-4 rounded-xl text-white text-xl font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500"
         >
-          {isBooked ? "Impact More" : "Shape Lives"}
+          {"Starts From ₹" + price + "/trailer"}
+          {/* {isBooked ? "Impact More" : "Shape Lives"} */}
         </Link>
       </div>
     </div>

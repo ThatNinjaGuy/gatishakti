@@ -14,6 +14,12 @@ const hotelRoom = {
   type: "document",
   fields: [
     defineField({
+      name: "rank",
+      title: "Rank",
+      type: "number",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "name",
       title: "Name",
       type: "string",
@@ -136,6 +142,13 @@ const hotelRoom = {
       type: "array",
       of: [{ type: "review" }],
     }),
+  ],
+  orderings: [
+    {
+      title: "Asscending Rank",
+      name: "rankAsc",
+      by: [{ field: "rank", direction: "asc" }],
+    },
   ],
 };
 

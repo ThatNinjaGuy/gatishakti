@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 import useSWR from "swr";
 
-const Ideas = () => {
+const Materials = () => {
   const [roomTypeFilter, setRoomTypeFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const searchParams = useSearchParams();
@@ -54,7 +54,7 @@ const Ideas = () => {
   const filteredRooms = filterRooms(data || []);
 
   return (
-    <div className="container mx-auto pt-10">
+    <div className="container mx-auto ">
       <Search
         roomTypeFilter={roomTypeFilter}
         searchQuery={searchQuery}
@@ -62,7 +62,26 @@ const Ideas = () => {
         setSearchQuery={setSearchQuery}
       />
 
-      <div className="flex mt-20 justify-between flex-wrap">
+      <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
+        Buy Sand
+      </div>
+      <div className="flex mt-5 justify-between flex-wrap">
+        {filteredRooms.map((room) => (
+          <RoomCard key={room._id} room={room} />
+        ))}
+      </div>
+      <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
+        Buy Bricks
+      </div>
+      <div className="flex mt-5 justify-between flex-wrap">
+        {filteredRooms.map((room) => (
+          <RoomCard key={room._id} room={room} />
+        ))}
+      </div>
+      <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
+        Buy Cement
+      </div>
+      <div className="flex mt-5 justify-between flex-wrap">
         {filteredRooms.map((room) => (
           <RoomCard key={room._id} room={room} />
         ))}
@@ -71,4 +90,4 @@ const Ideas = () => {
   );
 };
 
-export default Ideas;
+export default Materials;
