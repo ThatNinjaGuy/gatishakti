@@ -20,6 +20,11 @@ export const getRoomsQuery = groq`*[_type=="hotelRoom"] | order(rank) {
     name, price, slug, type
 }`;
 
+export const getConstructionMaterialsQueries = groq`*[_type=="marketProducts"] | order(rank) {
+    _id,
+    rank, name, products
+}`;
+
 export const getRoom = groq`*[_type=="hotelRoom" && slug.current==$slug][0] {
     _id,
     coverImage,

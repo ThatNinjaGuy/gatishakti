@@ -1,16 +1,16 @@
-import { Room } from "@/models/room";
+import { Product } from "@/models/constructtionmaterial";
 import { shortenDisplayText } from "@/utils/textProcessing";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
 type Props = {
-  room: Room;
+  product: Product;
 };
 
-const RoomCard: FC<Props> = (props) => {
+const ProductCard: FC<Props> = (props) => {
   const {
-    room: { coverImage, name, price, description, slug },
+    product: { coverImage, name, price, description, sellingMetric },
   } = props;
   return (
     <div
@@ -43,15 +43,18 @@ const RoomCard: FC<Props> = (props) => {
           <p className="pt-3 pb-6">{shortenDisplayText(description, 150)}</p>
         </div>
         <Link
-          href={`/materials/${slug.current}`}
-          className="bg-primary mt-4 inline-block text-center w-full py-4 rounded-xl text-white text-xl font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500"
+          href={`/materials`}
+          className="bg-primary mt-4 text-center w-full py-4 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center"
         >
-          {"Starts From ₹" + price + "/trailer"}
-          {/* {isBooked ? "Impact More" : "Shape Lives"} */}
+          <span className="text-base mb-2">Starts From</span>
+          <div className="inline-flex items-center">
+            <span className="text-xl mr-2">{"₹" + price}</span>
+            <span className="text-sm">{sellingMetric}</span>
+          </div>
         </Link>
       </div>
     </div>
   );
 };
 
-export default RoomCard;
+export default ProductCard;
