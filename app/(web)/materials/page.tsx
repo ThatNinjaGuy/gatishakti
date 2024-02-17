@@ -1,10 +1,9 @@
 "use client";
 
-import RoomCard from "@/app/components/RoomCard/RoomCard";
+import MarketPlace from "@/app/components/MarketPlace/MarketPlace";
 import Search from "@/app/components/Search/Search";
 import { getConstructionMaterials, getRooms } from "@/libs/apis";
 import { ConstructionMaterial } from "@/models/constructtionmaterial";
-import { Room } from "@/models/room";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -27,7 +26,7 @@ const Materials = () => {
   }
 
   const { data, error, isLoading } = useSWR(
-    "get/hotelRooms",
+    "get/marketProducts",
     fetchConstructionMaterials
   );
   if (error) throw new Error("Cannot fetch construction materials!");
@@ -67,25 +66,7 @@ const Materials = () => {
         setRoomTypeFilter={setRoomTypeFilter}
         setSearchQuery={setSearchQuery}
       />
-      <div>
-        {filteredConstructionMaterials &&
-        filteredConstructionMaterials.length > 0 ? (
-          filteredConstructionMaterials.map((material) => (
-            <div>
-              <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
-                {material.name}
-              </div>
-              <div className="flex mt-5 justify-between flex-wrap">
-                {material.products.map((product) => (
-                  <RoomCard key={product._key} product={product} />
-                ))}
-              </div>
-            </div>
-          ))
-        ) : (
-          <div>No Data found</div>
-        )}
-      </div>
+      <MarketPlace constructionMaterials={filteredConstructionMaterials} />
     </div>
   );
 };

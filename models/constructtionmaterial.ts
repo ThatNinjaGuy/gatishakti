@@ -12,6 +12,7 @@ export type Product = {
   rank: number;
   name: string;
   price: number;
+  sellingMetric: string;
   description: string;
   coverImage: CoverImage;
   specialNote: string;

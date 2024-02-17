@@ -47,6 +47,11 @@ const marketProducts = {
                 Rule.required().min(1).error("Minimum price is 1"),
             },
             {
+              name: "sellingMetric",
+              title: "Metric to sell at",
+              type: "string",
+            },
+            {
               name: "description",
               title: "Description",
               type: "text",
