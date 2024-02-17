@@ -2,7 +2,8 @@
 
 import RoomCard from "@/app/components/RoomCard/RoomCard";
 import Search from "@/app/components/Search/Search";
-import { getRooms } from "@/libs/apis";
+import { getConstructionMaterials, getRooms } from "@/libs/apis";
+import { ConstructionMaterial } from "@/models/constructtionmaterial";
 import { Room } from "@/models/room";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,37 +22,42 @@ const Materials = () => {
     if (searchQueryValue) setSearchQuery(searchQueryValue);
   }, []);
 
-  async function fetchData() {
-    return getRooms();
+  async function fetchConstructionMaterials() {
+    return getConstructionMaterials();
   }
-  const { data, error, isLoading } = useSWR("get/hotelRooms", fetchData);
-  if (error) throw new Error("Cannot fetch rooms!");
+
+  const { data, error, isLoading } = useSWR(
+    "get/hotelRooms",
+    fetchConstructionMaterials
+  );
+  if (error) throw new Error("Cannot fetch construction materials!");
   if (typeof data === "undefined" && !isLoading)
-    throw new Error("Cannot fetch rooms!");
+    throw new Error("Cannot fetch construction materials!");
 
-  const filterRooms = (rooms: Room[]) => {
-    return rooms.filter((room) => {
-      // Apply room filters and search criterias
-      if (
-        roomTypeFilter &&
-        roomTypeFilter.toLowerCase() !== "all" &&
-        room.type.toLowerCase() !== roomTypeFilter.toLowerCase()
-      ) {
-        return false;
-      }
+  const filterMaterials = (materials: ConstructionMaterial[]) => {
+    // return rooms.filter((room) => {
+    //   // Apply room filters and search criterias
+    //   if (
+    //     roomTypeFilter &&
+    //     roomTypeFilter.toLowerCase() !== "all" &&
+    //     room.type.toLowerCase() !== roomTypeFilter.toLowerCase()
+    //   ) {
+    //     return false;
+    //   }
 
-      if (
-        searchQuery &&
-        !room.name.toLowerCase().includes(searchQuery.toLowerCase())
-      ) {
-        return false;
-      }
+    //   if (
+    //     searchQuery &&
+    //     !room.name.toLowerCase().includes(searchQuery.toLowerCase())
+    //   ) {
+    //     return false;
+    //   }
 
-      return true;
-    });
+    //   return true;
+    // });
+    return materials;
   };
 
-  const filteredRooms = filterRooms(data || []);
+  const filteredConstructionMaterials = filterMaterials(data || []);
 
   return (
     <div className="container mx-auto ">
@@ -61,30 +67,24 @@ const Materials = () => {
         setRoomTypeFilter={setRoomTypeFilter}
         setSearchQuery={setSearchQuery}
       />
-
-      <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
-        Buy Sand
-      </div>
-      <div className="flex mt-5 justify-between flex-wrap">
-        {filteredRooms.map((room) => (
-          <RoomCard key={room._id} room={room} />
-        ))}
-      </div>
-      <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
-        Buy Bricks
-      </div>
-      <div className="flex mt-5 justify-between flex-wrap">
-        {filteredRooms.map((room) => (
-          <RoomCard key={room._id} room={room} />
-        ))}
-      </div>
-      <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
-        Buy Cement
-      </div>
-      <div className="flex mt-5 justify-between flex-wrap">
-        {filteredRooms.map((room) => (
-          <RoomCard key={room._id} room={room} />
-        ))}
+      <div>
+        {filteredConstructionMaterials &&
+        filteredConstructionMaterials.length > 0 ? (
+          filteredConstructionMaterials.map((material) => (
+            <div>
+              <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
+                {material.name}
+              </div>
+              <div className="flex mt-5 justify-between flex-wrap">
+                {material.products.map((product) => (
+                  <RoomCard key={product._key} product={product} />
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>No Data found</div>
+        )}
       </div>
     </div>
   );
