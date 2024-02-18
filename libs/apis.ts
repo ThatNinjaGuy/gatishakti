@@ -3,18 +3,7 @@ import sanityClient from "./sanity";
 import * as queries from "./sanityQueries";
 import axios from "axios";
 import { Services } from "@/models/services";
-
-export async function getFeaturedRooms() {
-  const result = await sanityClient.fetch<Room>(
-    queries.getFeaturedRoomsQuery,
-    {},
-    // Fetch data everytime afresh
-    { cache: "no-cache" }
-    //   Fetch data automatically every 30 mins
-    // { next: { revalidate: 1800 } }
-  );
-  return result;
-}
+import { ConstructionMaterial } from "@/models/constructtionmaterial";
 
 export async function getFeaturedServices() {
   const result = await sanityClient.fetch<Services[]>(
@@ -28,9 +17,9 @@ export async function getFeaturedServices() {
   return result;
 }
 
-export async function getRooms() {
-  const result = await sanityClient.fetch<Room[]>(
-    queries.getRoomsQuery,
+export async function getConstructionMaterials() {
+  const result = await sanityClient.fetch<ConstructionMaterial[]>(
+    queries.getConstructionMaterialsQueries,
     {},
     { cache: "no-cache" }
   );

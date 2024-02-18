@@ -1,23 +1,8 @@
 import { groq } from "next-sanity";
 
-export const getFeaturedRoomsQuery = groq`*[_type=="hotelRoom" && isFeatured == true][0] {
+export const getConstructionMaterialsQueries = groq`*[_type=="marketProducts"] | order(rank) {
     _id,
-    description,
-    discount,
-    images,
-    isFeatured,
-    name,
-    price,
-    slug,
-    coverImage
-}`;
-
-export const getRoomsQuery = groq`*[_type=="hotelRoom"] | order(rank) {
-    _id,
-    coverImage,
-    description, dimension,
-    isBooked, isFeatured,
-    name, price, slug, type
+    rank, name, products
 }`;
 
 export const getRoom = groq`*[_type=="hotelRoom" && slug.current==$slug][0] {
