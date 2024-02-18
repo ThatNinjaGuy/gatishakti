@@ -5,18 +5,6 @@ import axios from "axios";
 import { Services } from "@/models/services";
 import { ConstructionMaterial } from "@/models/constructtionmaterial";
 
-export async function getFeaturedRooms() {
-  const result = await sanityClient.fetch<Room>(
-    queries.getFeaturedRoomsQuery,
-    {},
-    // Fetch data everytime afresh
-    { cache: "no-cache" }
-    //   Fetch data automatically every 30 mins
-    // { next: { revalidate: 1800 } }
-  );
-  return result;
-}
-
 export async function getFeaturedServices() {
   const result = await sanityClient.fetch<Services[]>(
     queries.getFeaturedServicesQuery,
@@ -25,15 +13,6 @@ export async function getFeaturedServices() {
     { cache: "no-cache" }
     //   Fetch data automatically every 30 mins
     // { next: { revalidate: 1800 } }
-  );
-  return result;
-}
-
-export async function getRooms() {
-  const result = await sanityClient.fetch<Room[]>(
-    queries.getRoomsQuery,
-    {},
-    { cache: "no-cache" }
   );
   return result;
 }
