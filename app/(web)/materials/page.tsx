@@ -19,7 +19,7 @@ const Materials = () => {
     const roomType = searchParams.get("roomType");
     if (roomType) setRoomTypeFilter(roomType);
     if (searchQueryValue) setSearchQuery(searchQueryValue);
-  }, []);
+  }, [searchParams]);
 
   async function fetchConstructionMaterials() {
     return getConstructionMaterials();

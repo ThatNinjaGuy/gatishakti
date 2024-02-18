@@ -16,7 +16,7 @@ const MarketPlace: FC<Props> = (props) => {
     <div>
       {constructionMaterials && constructionMaterials.length > 0 ? (
         constructionMaterials.map((material) => (
-          <div>
+          <div key={material._id}>
             <div className="mt-10 px-4 sm:px-0 text-center sm:text-left text-tertiary-dark font-semibold text-[30px]">
               {material.name}
             </div>
