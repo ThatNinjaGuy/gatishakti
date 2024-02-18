@@ -2,7 +2,7 @@
 
 import MarketPlace from "@/app/components/MarketPlace/MarketPlace";
 import Search from "@/app/components/Search/Search";
-import { getConstructionMaterials, getRooms } from "@/libs/apis";
+import { getConstructionMaterials } from "@/libs/apis";
 import { ConstructionMaterial } from "@/models/constructtionmaterial";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";

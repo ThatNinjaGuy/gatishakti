@@ -1,34 +1,34 @@
 "use client";
-import { Room } from "@/models/room";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import CountUpNumber from "../CountUpNumber/CountUpNumber";
+import { Services } from "@/models/services";
 
 type Props = {
-  featuredRoom: Room;
+  featuredService: Services;
 };
 
-const RawMaterials: FC<Props> = (props) => {
-  const { featuredRoom } = props;
+const FeaturedService: FC<Props> = (props) => {
+  const { featuredService } = props;
   return (
     <section className="flex md:flex-row flex-col px-4 py-10 items-center gap-12 container mx-auto">
       <div className="md:grid gap-8 grid-cols-1">
         <div className="rounded-2xl overflow-hidden h-48 mb-4 md:mb-0">
           <Image
-            src={featuredRoom.coverImage.url}
-            alt={featuredRoom.name}
+            src={featuredService.coverImage.url}
+            alt={featuredService.name}
             width={300}
             height={300}
             className="img scale-animation"
           />
         </div>
         <div className="grid grid-cols-2 gap-8 h-48">
-          {featuredRoom.images.splice(1, 2).map((image) => (
-            <div key={image._key} className="rounded-2xl overflow-hidden">
+          {featuredService.images.map((image, index) => (
+            <div key={index} className="rounded-2xl overflow-hidden">
               <Image
                 src={image.url}
-                alt={image._key}
+                alt={index + "_sampleImage"}
                 width={300}
                 height={300}
                 className="img scale-animation"
@@ -38,38 +38,46 @@ const RawMaterials: FC<Props> = (props) => {
         </div>
       </div>
       <div className="md:py-10 md:w-1/2 text-left">
-        <h3 className="font-heading mb-10">Buy Construction Material</h3>
+        <h3 className="font-heading mb-10">{featuredService.name}</h3>
         <p className="mb-2 text-tertiary-dark font-semibold text-[20px]">
-          {featuredRoom.name}
+          {featuredService.title}
         </p>
-        <p className="font-normal">{featuredRoom.description}</p>
+        <p className="font-normal">{featuredService.description}</p>
         <p className="font-normal mt-5 text-tertiary-dark dark:text-tertiary-light">
           {"In Your Neighbourhood, we provide  🚜"}
         </p>
         <div className="flex flex-col md:flex-row md:items-end justify-between mt-2">
           <div className="flex mb-3 md:mb-0">
             <div className="flex gap-3 flex-col items-center justify-center mr-4">
-              <p className="text-xs lg:text-xl text-center">Products</p>
+              <p className="text-xs lg:text-xl text-center">
+                {featuredService.metric1Name}
+              </p>
               {/* <p className="sm:font-bold font-mediumflex font-medium text-lg xl:text-5xl"> */}
-              <CountUpNumber endValue={45} duration={1000} trailingText={"+"} />
+              <CountUpNumber
+                endValue={featuredService.metric1Value}
+                duration={1000}
+                trailingText={featuredService.metric1TrailingText}
+              />
               {/* </p>  */}
             </div>
             <div className="flex gap-3 flex-col items-center justify-center ml-4">
-              <p className="text-xs lg:text-xl text-center">Vendors</p>
+              <p className="text-xs lg:text-xl text-center">
+                {featuredService.metric2Name}
+              </p>
               {/* <p className="sm:font-bold flex font-medium text-lg xl:text-5xl"> */}
               <CountUpNumber
-                endValue={100}
+                endValue={featuredService.metric2Value}
                 duration={1000}
-                trailingText={"+"}
+                trailingText={featuredService.metric2TrailingText}
               />
               {/* </p> */}
             </div>
           </div>
           <Link
-            href={`/materials/${featuredRoom.slug.current}`}
-            className="border h-fit text-center border-tertiary-dark text-tertiary-dark px-3 py-2 lg:py-5 lg:px-7 wounded-2xl font-bold lg:text-xl"
+            href={`/materials`}
+            className="border h-fit text-center border-tertiary-dark text-tertiary-dark px-3 py-2 lg:py-5 lg:px-7 wounded-2xl font-bold "
           >
-            {"Buy Materials"}
+            {featuredService.hookText}
           </Link>
         </div>
       </div>
@@ -77,4 +85,4 @@ const RawMaterials: FC<Props> = (props) => {
   );
 };
 
-export default RawMaterials;
+export default FeaturedService;
