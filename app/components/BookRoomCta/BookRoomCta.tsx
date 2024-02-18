@@ -5,9 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 type Props = {
-  price: number;
-  discount: number;
-  specialNote: string;
   checkInDate: Date | null;
   setCheckInDate: Dispatch<SetStateAction<Date | null>>;
   checkOutDate: Date | null;
@@ -27,9 +24,6 @@ type Props = {
 
 const BookRoomCta: FC<Props> = (props) => {
   const {
-    price,
-    discount,
-    specialNote,
     checkInDate,
     setCheckInDate,
     checkOutDate,
@@ -46,7 +40,7 @@ const BookRoomCta: FC<Props> = (props) => {
     maxAdults,
     maxChildren,
   } = props;
-  const discountPrice = price - (price / 100) * discount;
+  // const discountPrice = price - (price / 100) * discount;
 
   const calculateNumberOFDays = () => {
     if (!checkInDate || !checkOutDate) return 0;

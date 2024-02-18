@@ -1,5 +1,5 @@
 "use client";
-import { Image as ImageType } from "@/models/room";
+import { Image as ImageType } from "@/models/productDetails";
 import Image from "next/image";
 import { FC, useState } from "react";
 

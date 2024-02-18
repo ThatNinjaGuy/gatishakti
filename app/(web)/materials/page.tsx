@@ -3,7 +3,7 @@
 import MarketPlace from "@/app/components/MarketPlace/MarketPlace";
 import Search from "@/app/components/Search/Search";
 import { getConstructionMaterials } from "@/libs/apis";
-import { ConstructionMaterial } from "@/models/constructtionmaterial";
+import { ConstructionMaterial } from "@/models/constructionMaterial";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

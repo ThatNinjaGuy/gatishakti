@@ -1,6 +1,6 @@
 "use client";
 
-import { getRoom } from "@/libs/apis";
+import { getProductDetails } from "@/libs/apis";
 import useSWR from "swr";
 import LoadingSpinner from "../../loading";
 import HotelPhotoGallery from "@/app/components/HotelPhotoGallery/HotelPhotoGallery";
@@ -9,6 +9,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import YouTubeEmbed from "@/app/components/YoutubeVideoPlayer/YoutubeVideoPlayer";
 import Image from "next/image";
+import ProductTypeCard from "@/app/components/ProductTypeCard/ProductTypeCard";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
   const {
@@ -26,7 +27,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     maxChildren = 5,
     minChildren = 0;
 
-  const fetchRoom = async () => getRoom(slug);
+  const fetchRoom = async () => getProductDetails(slug);
 
   const { data: room, error, isLoading } = useSWR("/api/room", fetchRoom);
 
@@ -35,7 +36,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     throw new Error("Cannot fetch room details");
 
   if (!room) return <LoadingSpinner />;
-  console.log(room);
 
   const calculateMinimumCheckoutDate = () => {
     if (checkInDate) {
@@ -44,13 +44,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       return nextDay;
     }
     return null;
-  };
-
-  const calculateNumberOfDays = () => {
-    if (!checkInDate || !checkOutDate) return 0;
-    const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
-    const modifyDays = Math.ceil(timeDiff / (24 * 60 * 60 * 1000));
-    return modifyDays;
   };
 
   const handleBookNowClick = () => {
@@ -73,50 +66,44 @@ const RoomDetails = (props: { params: { slug: string } }) => {
         `Number of children should be between ${minChildren} and ${maxChildren}`
       );
 
-    const numOfDays = calculateNumberOfDays();
-    const hotelRoomSlug = room.slug.current;
-    //   Integrate Stripe
-
     console.log("Will start booking room now");
   };
 
   return (
     <div>
-      <HotelPhotoGallery photos={room.images} />
-      <div className="container mx-auto mt-20">
+      <div className="container mx-auto ">
         <div className="md:grid md:grid-cols-12 gap-10 px-3">
           <div className="md:col-span-8 md:w-full">
-            <h2 className="font-bold text-left text-lg md:text-2xl mb-4">
-              {room.name}
-            </h2>
-            <div className="my-11 w-full h-80 items-center">
+            <div className=" w-full h-80 items-center">
               <Image
                 alt="gallery"
                 className="img"
-                src="/images/hero-1.jpg"
+                src={room.coverImage.url}
                 width={200}
                 height={200}
               />
             </div>
-            {/* <YouTubeEmbed videoId="_dtel_5Mt8o" /> */}
-            <div className="my-11">
-              <h2 className="font-bold text-3xl mb-2">The Problem!</h2>
+            <div className="my-5">
+              <h2 className="font-bold text-3xl mb-2">{room.name}</h2>
               <p>{room.description}</p>
             </div>
             <div className="my-11">
-              <h2 className="font-bold text-3xl mb-2">
-                How your contribution helps?
-              </h2>
-              <p>{room.description}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {room.productTypes ? (
+                  room.productTypes.map((productType) => (
+                    <ProductTypeCard
+                      key={productType._key}
+                      room={productType}
+                    />
+                  ))
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
-            {/* <div className="my-11">
-              <h2 className="font-bold text-3xl mb-2">Our Success Story</h2>
-              <YouTubeEmbed videoId="_dtel_5Mt8o" />
-            </div> */}
             <div className="my-11">
               <h2 className="font-bold text-3xl mb-2">Our Success Story</h2>
-              <div className="grid grid-cols-3 gap-5 sm:grid-row">
-                {/* <div className="grid grid-cols-3 gap-5 md:flex md:flex-row"> */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <YouTubeEmbed videoId="LQhHyCHrgYQ" />
                 <YouTubeEmbed videoId="m2fMergvliY" />
                 <YouTubeEmbed videoId="MGhxgaKM07Y" />
@@ -133,9 +120,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
           </div>
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
             <BookRoomCta
-              discount={room.discount}
-              price={room.price}
-              specialNote={room.specialNote}
+              // discount={room.discount}
+              // price={room.price}
+              // specialNote={room.specialNote}
               checkInDate={checkInDate}
               setCheckInDate={setCheckInDate}
               checkOutDate={checkOutDate}

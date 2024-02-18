@@ -7,10 +7,14 @@ export type Image = {
   url: string;
 };
 
-type Ammenity = {
+export type ProductType = {
   _key: string;
-  amenity: string;
-  icon: string;
+  rank: number;
+  name: string;
+  price: number;
+  sellingMetric: string;
+  description: string;
+  discount: number;
 };
 
 type Slug = {
@@ -18,22 +22,15 @@ type Slug = {
   current: string;
 };
 
-export type Room = {
+export type ProductDetails = {
   _id: string;
-  coverImage: CoverImage;
+  name: string;
+  slug: Slug;
   description: string;
-  dimension: string;
-  discount: number;
-  images: Image[];
+  productTypes: ProductType[];
+  coverImage: CoverImage;
   isBooked: boolean;
   isFeatured: boolean;
-  name: string;
-  numberOfBeds: number;
-  offeredAmenities: Ammenity[];
-  price: number;
-  slug: Slug;
-  specialNote: string;
-  type: string;
 };
 
 export type CreateBookingDto = {
