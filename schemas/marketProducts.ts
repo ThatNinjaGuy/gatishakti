@@ -39,6 +39,14 @@ const marketProducts = {
               validation: (Rule) =>
                 Rule.required().max(50).error("Maximum 50 Characters"),
             },
+            defineField({
+              name: "slug",
+              type: "slug",
+              options: {
+                source: (doc, context) => context.parent.name,
+              },
+              validation: (Rule) => Rule.required(),
+            }),
             {
               name: "price",
               title: "Price",

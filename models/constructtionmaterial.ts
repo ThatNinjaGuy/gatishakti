@@ -7,10 +7,16 @@ export type Image = {
   url: string;
 };
 
+type Slug = {
+  _type: string;
+  current: string;
+};
+
 export type Product = {
   _key: string;
   rank: number;
   name: string;
+  slug: Slug;
   price: number;
   sellingMetric: string;
   description: string;
