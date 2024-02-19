@@ -6,15 +6,16 @@ import marketProducts from "./marketProducts";
 import review from "./review";
 import user from "./user";
 import verificationToken from "./verificationToken";
+import productDetails from "./productDetails";
 
 // Map out the various schemas for creation of databases
 export const schemaTypes = [
   user,
   account,
   booking,
-  hotelRoom,
   review,
   verificationToken,
   featuredServices,
   marketProducts,
+  productDetails,
 ];

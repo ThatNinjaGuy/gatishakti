@@ -3,8 +3,7 @@
 import { getProductDetails } from "@/libs/apis";
 import useSWR from "swr";
 import LoadingSpinner from "../../loading";
-import HotelPhotoGallery from "@/app/components/HotelPhotoGallery/HotelPhotoGallery";
-import BookRoomCta from "@/app/components/BookRoomCta/BookRoomCta";
+import BuyProductsCta from "@/app/components/BuyProductsCta/BuyProductsCta";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import YouTubeEmbed from "@/app/components/YoutubeVideoPlayer/YoutubeVideoPlayer";
@@ -29,13 +28,13 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
   const fetchRoom = async () => getProductDetails(slug);
 
-  const { data: room, error, isLoading } = useSWR("/api/room", fetchRoom);
+  const { data: product, error, isLoading } = useSWR("/api/product", fetchRoom);
 
   if (error) throw new Error("Cannot fetch rooms details");
-  if (typeof room === "undefined" && !isLoading)
+  if (typeof product === "undefined" && !isLoading)
     throw new Error("Cannot fetch room details");
 
-  if (!room) return <LoadingSpinner />;
+  if (!product) return <LoadingSpinner />;
 
   const calculateMinimumCheckoutDate = () => {
     if (checkInDate) {
@@ -78,19 +77,19 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               <Image
                 alt="gallery"
                 className="img"
-                src={room.coverImage.url}
+                src={product.coverImage.url}
                 width={200}
                 height={200}
               />
             </div>
             <div className="my-5">
-              <h2 className="font-bold text-3xl mb-2">{room.name}</h2>
-              <p>{room.description}</p>
+              <h2 className="font-bold text-3xl mb-2">{product.name}</h2>
+              <p>{product.description}</p>
             </div>
             <div className="my-11">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {room.productTypes ? (
-                  room.productTypes.map((productType) => (
+                {product.productTypes ? (
+                  product.productTypes.map((productType) => (
                     <ProductTypeCard
                       key={productType._key}
                       room={productType}
@@ -102,7 +101,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               </div>
             </div>
             <div className="my-11">
-              <h2 className="font-bold text-3xl mb-2">Our Success Story</h2>
+              <h2 className="font-bold text-3xl mb-2">Recommendations</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <YouTubeEmbed videoId="LQhHyCHrgYQ" />
                 <YouTubeEmbed videoId="m2fMergvliY" />
@@ -119,25 +118,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             </div>
           </div>
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
-            <BookRoomCta
-              // discount={room.discount}
-              // price={room.price}
-              // specialNote={room.specialNote}
-              checkInDate={checkInDate}
-              setCheckInDate={setCheckInDate}
-              checkOutDate={checkOutDate}
-              setCheckOutDate={setCheckOutDate}
-              calculateMinimumCheckoutDate={calculateMinimumCheckoutDate}
-              adults={adults}
-              childrenNum={childrenNum}
-              setAdults={setAdults}
-              setChildrenNum={setChildrenNum}
-              isBooked={room.isBooked}
+            <BuyProductsCta
               handleBookNowClick={handleBookNowClick}
-              minAdults={minAdults}
-              maxAdults={maxAdults}
-              minChildren={minChildren}
-              maxChildren={maxChildren}
+              productTypes={product.productTypes}
             />
           </div>
         </div>
