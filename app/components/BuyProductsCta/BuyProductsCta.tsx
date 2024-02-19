@@ -6,12 +6,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import ProductCartList from "../ProductCartList/ProductCartList";
 
 type Props = {
-  handleBookNowClick: () => void;
+  // handleBookNowClick: () => void;
   productTypes: ProductType[];
 };
 
 const BuyProductsCta: FC<Props> = (props) => {
-  const { handleBookNowClick, productTypes } = props;
+  const { productTypes } = props;
 
   return (
     <div className="px-7 py-6">
@@ -33,8 +33,8 @@ const BuyProductsCta: FC<Props> = (props) => {
         </div>
       </div>
       <button
-        onClick={handleBookNowClick}
-        className="mt-10 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
+        // onClick={handleBookNowClick}
+        className="mt-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
       >
         {"Buy Now"}
       </button>
