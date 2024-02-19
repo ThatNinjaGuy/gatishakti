@@ -2,7 +2,7 @@
 
 import ProductCard from "@/app/components/ProductCard/ProductCard";
 import Search from "@/app/components/Search/Search";
-import { ConstructionMaterial } from "@/models/constructtionmaterial";
+import { ConstructionMaterial } from "@/models/constructionMaterial";
 import { FC } from "react";
 
 type Props = {

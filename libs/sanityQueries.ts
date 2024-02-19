@@ -1,23 +1,18 @@
 import { groq } from "next-sanity";
 
-export const getConstructionMaterialsQueries = groq`*[_type=="marketProducts"] | order(rank) {
+export const getConstructionMaterialsQuery = groq`*[_type=="marketProducts"] | order(rank) {
     _id,
     rank, name, products
 }`;
 
-export const getRoom = groq`*[_type=="hotelRoom" && slug.current==$slug][0] {
+export const getProductDetails = groq`*[_type=="productDetails" && slug.current==$slug][0] {
     _id,
+    name,
+    slug, description,
+    productTypes,
     coverImage,
-    description, dimension,
-    discount,
-    images,
     isBooked,
     isFeatured,
-    name,
-    numberOfBeds,
-    offeredAmenities,
-    price, slug, specialNote,
-    type
 }`;
 
 export const getFeaturedServicesQuery = groq`*[_type=="featuredServices" && isActive == true] {
