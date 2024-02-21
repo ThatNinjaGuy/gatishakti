@@ -12,7 +12,7 @@ type Props = {
 
 const ProductTypeCard: FC<Props> = (props) => {
   const {
-    room: { name, price, description },
+    room: { name, price, description, sellingMetric },
     productCount,
     decreaseProductCount,
     increaseProductCount,
@@ -47,7 +47,7 @@ const ProductTypeCard: FC<Props> = (props) => {
               />
             </div>{" "}
             <span className="col-span-1 flex justify-center items-center">
-              Trailers
+              /{sellingMetric}
             </span>
           </div>
           <div className="w-full border-b-2 border-b-secondary my-2" />
