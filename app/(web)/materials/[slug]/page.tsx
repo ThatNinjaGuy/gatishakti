@@ -104,6 +104,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             <BuyProductsCta
               // handleBookNowClick={handleBookNowClick}
               productTypes={product.productTypes}
+              productCount={productCount}
+              increaseProductCount={increaseProductCount}
+              decreaseProductCount={decreaseProductCount}
             />
           </div>
         </div>

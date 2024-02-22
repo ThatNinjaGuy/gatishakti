@@ -18,8 +18,6 @@ const ProductTypeCard: FC<Props> = (props) => {
     increaseProductCount,
   } = props;
 
-  console.log(productCount);
-
   return (
     <div
       className="flex flex-col rounded-xl w-42 mb-10 mx-auto md:mx-0 overflow-hidden text-black"

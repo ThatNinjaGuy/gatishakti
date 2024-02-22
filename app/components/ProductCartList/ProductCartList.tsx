@@ -7,14 +7,18 @@ import ProductCounter from "../ProductCounter/ProductCounter";
 
 type Props = {
   productCartList: ProductType[];
+  productCount: Map<String, number>;
+  increaseProductCount: (productKey: string) => void;
+  decreaseProductCount: (productKey: string) => void;
 };
 
 const ProductCartList: FC<Props> = (props) => {
-  const { productCartList } = props;
-
-  const onProductAdded = () => {};
-
-  const onProductRemoved = () => {};
+  const {
+    productCartList,
+    productCount,
+    increaseProductCount,
+    decreaseProductCount,
+  } = props;
 
   return (
     <div>
@@ -32,9 +36,9 @@ const ProductCartList: FC<Props> = (props) => {
             </span>
           </div>
           <ProductCounter
-            value={45}
-            onDecrement={onProductRemoved}
-            onIncrement={onProductAdded}
+            value={productCount.get(product._key) ?? 0}
+            onIncrement={() => increaseProductCount(product._key)}
+            onDecrement={() => decreaseProductCount(product._key)}
           />
         </div>
       ))}
