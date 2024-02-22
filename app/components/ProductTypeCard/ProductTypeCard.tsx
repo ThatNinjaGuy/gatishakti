@@ -6,8 +6,8 @@ import ProductCounter from "../ProductCounter/ProductCounter";
 type Props = {
   room: ProductType;
   productCount: number | null;
-  increaseProductCount: () => void;
-  decreaseProductCount: () => void;
+  increaseProductCount: (productKey: string) => void;
+  decreaseProductCount: (productKey: string) => void;
 };
 
 const ProductTypeCard: FC<Props> = (props) => {
@@ -42,8 +42,8 @@ const ProductTypeCard: FC<Props> = (props) => {
             <div className="col-span-2">
               <ProductCounter
                 value={productCount ?? 0}
-                onDecrement={decreaseProductCount}
-                onIncrement={increaseProductCount}
+                onDecrement={() => decreaseProductCount(name)}
+                onIncrement={() => increaseProductCount(name)}
               />
             </div>{" "}
             <span className="col-span-1 flex justify-center items-center">

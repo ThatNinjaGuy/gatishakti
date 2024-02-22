@@ -14,14 +14,26 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     params: { slug },
   } = props;
 
-  const [productCount, setProductCount] = useState<number>(0);
-  const increaseProductCount = () => {
-    setProductCount(productCount + 1 < 100 ? productCount + 1 : 100);
+  const [productCount, setProductCount] = useState(new Map<String, number>());
+
+  const increaseProductCount = (productKey: string) => {
+    setProductCount((prevMap) => {
+      const newMap = new Map(prevMap); // Create a new Map from the previous Map
+      const currentCount = newMap.get(productKey) ?? 0;
+      newMap.set(productKey, currentCount + 1 < 100 ? currentCount + 1 : 100);
+      return newMap;
+    });
   };
 
-  const decreaseProductCount = () => {
-    setProductCount(productCount - 1 > 0 ? productCount - 1 : 0);
+  const decreaseProductCount = (productKey: string) => {
+    setProductCount((prevMap) => {
+      const newMap = new Map(prevMap); // Create a new Map from the previous Map
+      const currentCount = newMap.get(productKey) ?? 0;
+      newMap.set(productKey, currentCount - 1 > 0 ? currentCount - 1 : 0);
+      return newMap;
+    });
   };
+
   const fetchRoom = async () => getProductDetails(slug);
 
   const { data: product, error, isLoading } = useSWR("/api/product", fetchRoom);
@@ -53,9 +65,13 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                     <ProductTypeCard
                       key={productType._key}
                       room={productType}
-                      productCount={productCount}
-                      increaseProductCount={increaseProductCount}
-                      decreaseProductCount={decreaseProductCount}
+                      productCount={productCount?.get(productType._key) ?? 0}
+                      increaseProductCount={() =>
+                        increaseProductCount(productType._key)
+                      }
+                      decreaseProductCount={() =>
+                        decreaseProductCount(productType._key)
+                      }
                     />
                   ))
                 ) : (
