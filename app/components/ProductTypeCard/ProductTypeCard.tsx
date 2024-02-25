@@ -45,14 +45,14 @@ const ProductTypeCard: FC<Props> = (props) => {
               />
             </div>{" "}
             <span className="col-span-1 flex justify-center items-center">
-              /{sellingMetric}
+              {sellingMetric}
             </span>
           </div>
           <div className="w-full border-b-2 border-b-secondary my-2" />
           <div className="grid grid-cols-2">
             <span className="col-span-1 italic font-light">@ ₹{price}</span>
             <span className="col-span-1 flex justify-end items-center font-semibold">
-              Tot: ₹{price}
+              Tot: ₹{productCount ? price * productCount : 0}
             </span>
           </div>
         </div>

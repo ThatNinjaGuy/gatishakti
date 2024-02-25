@@ -8,30 +8,25 @@ import { useState } from "react";
 import YouTubeEmbed from "@/app/components/YoutubeVideoPlayer/YoutubeVideoPlayer";
 import Image from "next/image";
 import ProductTypeCard from "@/app/components/ProductTypeCard/ProductTypeCard";
+import { useProductCountMap } from "@/app/context/ProductCountContext";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
+  const { productCountMap, updateProductCountMap, removeProduct } =
+    useProductCountMap();
+
   const {
     params: { slug },
   } = props;
 
-  const [productCount, setProductCount] = useState(new Map<String, number>());
-
   const increaseProductCount = (productKey: string) => {
-    setProductCount((prevMap) => {
-      const newMap = new Map(prevMap); // Create a new Map from the previous Map
-      const currentCount = newMap.get(productKey) ?? 0;
-      newMap.set(productKey, currentCount + 1 < 100 ? currentCount + 1 : 100);
-      return newMap;
-    });
+    const currentCount = productCountMap.get(productKey) ?? 0;
+    updateProductCountMap(productKey, currentCount + 1);
   };
 
   const decreaseProductCount = (productKey: string) => {
-    setProductCount((prevMap) => {
-      const newMap = new Map(prevMap); // Create a new Map from the previous Map
-      const currentCount = newMap.get(productKey) ?? 0;
-      newMap.set(productKey, currentCount - 1 > 0 ? currentCount - 1 : 0);
-      return newMap;
-    });
+    const currentCount = productCountMap.get(productKey) ?? 0;
+    if (currentCount > 1) updateProductCountMap(productKey, currentCount - 1);
+    else removeProduct(productKey);
   };
 
   const fetchRoom = async () => getProductDetails(slug);
@@ -65,7 +60,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                     <ProductTypeCard
                       key={productType._key}
                       room={productType}
-                      productCount={productCount?.get(productType._key) ?? 0}
+                      productCount={productCountMap?.get(productType._key) ?? 0}
                       increaseProductCount={() =>
                         increaseProductCount(productType._key)
                       }
@@ -104,7 +99,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             <BuyProductsCta
               // handleBookNowClick={handleBookNowClick}
               productTypes={product.productTypes}
-              productCount={productCount}
+              productCount={productCountMap}
               increaseProductCount={increaseProductCount}
               decreaseProductCount={decreaseProductCount}
             />
