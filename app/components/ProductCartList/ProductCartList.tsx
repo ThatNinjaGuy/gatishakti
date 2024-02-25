@@ -1,19 +1,16 @@
 "use client";
 
-import { FC } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import ProductCounter from "../ProductCounter/ProductCounter";
-import { CartItem } from "@/app/context/ProductCountContext";
-import { ProductType } from "@/models/productDetails";
+import {
+  CartItem,
+  useProductCartList,
+} from "@/app/context/ProductCountContext";
+import { calculateCostFromProductCount } from "@/utils/costCalculation";
 
-type Props = {
-  productCartList: Map<String, CartItem>;
-  increaseProductCount: (productKey: string, productType: ProductType) => void;
-  decreaseProductCount: (productKey: string, productType: ProductType) => void;
-};
-
-const ProductCartList: FC<Props> = (props) => {
-  const { productCartList, increaseProductCount, decreaseProductCount } = props;
+const ProductCartList = () => {
+  const { productCartList, updateProductCartList, removeProductFromCartList } =
+    useProductCartList();
 
   return (
     <div>
@@ -21,7 +18,7 @@ const ProductCartList: FC<Props> = (props) => {
         ([key, { productCount, productType }]) => (
           <div
             key={key.toString()}
-            className="mt-5 grid grid-cols-2 gap-4 bg-white shadow-md"
+            className="mb-5 grid grid-cols-2 gap-4 bg-white shadow-md"
           >
             <div className="col-span-1 ">
               <span className="flex items-center px-2 font-semibold">
@@ -33,16 +30,36 @@ const ProductCartList: FC<Props> = (props) => {
             </div>
             <ProductCounter
               value={productCount ?? 0}
-              onIncrement={() =>
-                increaseProductCount(key.toString(), productType)
-              }
-              onDecrement={() =>
-                decreaseProductCount(key.toString(), productType)
-              }
+              onIncrement={() => {
+                const updatedCartItem: CartItem = {
+                  productType: productType,
+                  productCount: productCount + 1,
+                };
+                updateProductCartList(key.toString(), updatedCartItem);
+              }}
+              onDecrement={() => {
+                if (productCount > 1) {
+                  const updatedCartItem: CartItem = {
+                    productType: productType,
+                    productCount: productCount - 1,
+                  };
+                  updateProductCartList(key, updatedCartItem);
+                } else removeProductFromCartList(key);
+              }}
             />
           </div>
         )
       )}
+      <div className="mt-5 grid grid-cols-2 gap-4">
+        <span className="col-span-1 flex items-center px-2 font-bold text-2xl ">
+          Total
+        </span>
+        <div className="col-span-1 flex items-center justify-center space-x-4 p-1 rounded-lg">
+          <span className="text-2xl font-semibold">
+            {"₹" + calculateCostFromProductCount(productCartList)}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

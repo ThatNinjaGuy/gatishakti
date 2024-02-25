@@ -120,8 +120,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
             <BuyProductsCta
               // handleBookNowClick={handleBookNowClick}
               productCartList={productCartList}
-              increaseProductCount={increaseProductCount}
-              decreaseProductCount={decreaseProductCount}
             />
           </div>
         </div>

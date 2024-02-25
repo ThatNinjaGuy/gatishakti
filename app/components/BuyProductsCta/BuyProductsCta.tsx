@@ -3,19 +3,16 @@
 import { FC } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import ProductCartList from "../ProductCartList/ProductCartList";
-import { calculateCostFromProductCount } from "@/utils/costCalculation";
 import { CartItem } from "@/app/context/ProductCountContext";
-import { ProductType } from "@/models/productDetails";
+import Link from "next/link";
 
 type Props = {
   // handleBookNowClick: () => void;
   productCartList: Map<String, CartItem>;
-  increaseProductCount: (productKey: string, productType: ProductType) => void;
-  decreaseProductCount: (productKey: string, productType: ProductType) => void;
 };
 
 const BuyProductsCta: FC<Props> = (props) => {
-  const { productCartList, increaseProductCount, decreaseProductCount } = props;
+  const { productCartList } = props;
 
   return (
     <div className="px-7 py-6">
@@ -35,25 +32,22 @@ const BuyProductsCta: FC<Props> = (props) => {
           Add our products and services to start building your home.
         </h4>
       )}
-      <ProductCartList
-        productCartList={productCartList}
-        increaseProductCount={increaseProductCount}
-        decreaseProductCount={decreaseProductCount}
-      />
-      <div className="mt-5 grid grid-cols-2 gap-4">
-        <span className="col-span-1 flex items-center px-2">Total</span>
-        <div className="col-span-1 flex items-center justify-center space-x-4 p-1 rounded-lg">
-          <span className="text-2xl font-semibold">
-            {"₹" + calculateCostFromProductCount(productCartList)}
-          </span>
-        </div>
-      </div>
-      <button
-        // onClick={handleBookNowClick}
+      <ProductCartList />
+
+      <Link href={`/checkout`}>
+        <button
+          // onClick={handleBookNowClick}
+          className="mt-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
+        >
+          {"Buy Now"}
+        </button>
+      </Link>
+      {/* <Link
+        href={`/materials`}
         className="mt-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
       >
-        {"Buy Now"}
-      </button>
+        Buy Now
+      </Link> */}
     </div>
   );
 };
