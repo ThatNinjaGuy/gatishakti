@@ -6,18 +6,23 @@ import { useState } from "react";
 const Checkout = () => {
   const [primaryDeliveryOption, setPrimaryDeliveryOption] = useState("");
 
+  const shadowStyle = "shadow-lg"; // softer shadow
+  const buttonStyle =
+    "bg-tertiary-dark text-white px-6 py-2 lg:py-2 rounded-full font-bold transition duration-300 ease-in-out hover:bg-tertiary-darker";
+
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex flex-row shadow-2xl p-5">
+    <div className="container mx-auto px-4 py-6">
+      <div className={`flex flex-row ${shadowStyle} p-5 rounded-lg bg-white`}>
         {/* Left side - Product Cart List */}
-        <div className="flex-1">
+        <div className="flex-1 pr-4">
           <ProductCartList />
         </div>
 
+        {/* Right side - Delivery and Payment Options */}
         <div className="w-1/2 ml-4">
           {/* Payment Options */}
-          <div className="flex flex-row space-x-4 mb-5  shadow-md p-5">
-            <label className="mr-22 font-semibold">Make Payment</label>
+          <div className={`mb-5 ${shadowStyle} rounded-lg p-5`}>
+            <label className="block font-semibold mb-3">Make Payment</label>
             <div className="flex items-center space-x-5">
               <label className="flex items-center space-x-2">
                 <input
@@ -28,53 +33,49 @@ const Checkout = () => {
                 />
                 <span>Online</span>
               </label>
-            </div>
-            <div>
               <label className="flex items-center space-x-3">
                 <input
                   type="radio"
-                  name="deliveryType"
+                  name="paymentType"
                   className="form-radio h-5 w-5"
                   value="cod"
                 />
-                <span>Cash On Delivery(COD)</span>
+                <span>Cash On Delivery (COD)</span>
               </label>
             </div>
           </div>
+
           {/* Delivery Options */}
-          <div className="mb-5 shadow-md p-5">
-            <div className="flex flex-row space-x-4 ">
-              <label className="mr-5 font-semibold">
-                Choose Delivery Option
+          <div className={`mb-5 ${shadowStyle} rounded-lg p-5`}>
+            <label className="block font-semibold mb-3">
+              Choose Delivery Option
+            </label>
+            <div className="flex items-center space-x-5">
+              <label className="flex items-center space-x-3">
+                <input
+                  type="radio"
+                  name="primaryDeliveryOption"
+                  className="form-radio h-5 w-5"
+                  value="home"
+                  onChange={(e) => setPrimaryDeliveryOption(e.target.value)}
+                />
+                <span>Get at home</span>
               </label>
-              <div>
-                <label className="flex items-center space-x-3">
-                  <input
-                    type="radio"
-                    name="primaryDeliveryOption"
-                    className="form-radio h-5 w-5"
-                    value="home"
-                    onChange={(e) => setPrimaryDeliveryOption(e.target.value)}
-                  />
-                  <span>Get at home</span>
-                </label>
-              </div>
-              <div>
-                <label className="flex items-center space-x-3">
-                  <input
-                    type="radio"
-                    name="primaryDeliveryOption"
-                    className="form-radio h-5 w-5"
-                    value="pickup"
-                    onChange={(e) => setPrimaryDeliveryOption(e.target.value)}
-                  />
-                  <span>Pickup from store</span>
-                </label>
-              </div>
+              <label className="flex items-center space-x-3">
+                <input
+                  type="radio"
+                  name="primaryDeliveryOption"
+                  className="form-radio h-5 w-5"
+                  value="pickup"
+                  onChange={(e) => setPrimaryDeliveryOption(e.target.value)}
+                />
+                <span>Pickup from store</span>
+              </label>
             </div>
+
             {/* Conditionally render the delivery customization options */}
             {primaryDeliveryOption === "home" && (
-              <div className="mt-4 p-4 border rounded-md">
+              <div className="mt-4 p-4 border rounded-md bg-gray-50">
                 <p className="text-lg font-semibold mb-3">
                   Customize your delivery:
                 </p>
@@ -97,22 +98,19 @@ const Checkout = () => {
                     />
                     <span>Express Delivery</span>
                   </label>
-                  {/* Add more customization options as needed */}
                 </div>
               </div>
             )}
           </div>
 
-          <div className="flex flex-col items-center mt-5 shadow-md p-5">
-            <label className="font-semibold self-start mb-2">Address</label>
-            {/* <Link href={`/checkout`}> */}
-            <button
-              // onClick={handleBookNowClick}
-              className="border h-fit w-1/2 text-center border-tertiary-dark text-tertiary-dark px-3 py-2 lg:py-3 lg:px-5 rounded-2xl font-bold "
-            >
-              Add Address
-            </button>
-            {/* </Link> */}
+          {/* Address Section */}
+          <div
+            className={`flex flex-col items-center mt-5 ${shadowStyle} p-5 rounded-lg`}
+          >
+            <label className="font-semibold self-start mb-2 w-full">
+              Address
+            </label>
+            <button className={buttonStyle}>Add Address</button>
           </div>
         </div>
       </div>
