@@ -1,6 +1,5 @@
 "use client";
 
-import { ProductType } from "@/models/productDetails";
 import { FC } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import ProductCartList from "../ProductCartList/ProductCartList";
@@ -24,10 +23,16 @@ const BuyProductsCta: FC<Props> = (props) => {
         </span>
       </h3>
       <div className="w-full border-b-2 border-b-secondary my-2" />
-      <h4 className=" text-gray-900 dark:text-gray-400 pt-2">
-        Get the best quality service to have a hassle free experience in
-        building your home. Order in bulk to save more!
-      </h4>
+      {productCartList && productCartList.size > 0 ? (
+        <h4 className=" text-gray-900 dark:text-gray-400 pt-2">
+          Get the best quality service to have a hassle free experience in
+          building your home. Order in bulk to save more!
+        </h4>
+      ) : (
+        <h4 className=" text-gray-900 dark:text-gray-400 pt-2">
+          Add our products and services to start building your home.
+        </h4>
+      )}
       <ProductCartList
         productCartList={productCartList}
         increaseProductCount={increaseProductCount}

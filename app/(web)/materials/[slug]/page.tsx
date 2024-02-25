@@ -4,7 +4,6 @@ import { getProductDetails } from "@/libs/apis";
 import useSWR from "swr";
 import LoadingSpinner from "../../loading";
 import BuyProductsCta from "@/app/components/BuyProductsCta/BuyProductsCta";
-import { useState } from "react";
 import YouTubeEmbed from "@/app/components/YoutubeVideoPlayer/YoutubeVideoPlayer";
 import Image from "next/image";
 import ProductTypeCard from "@/app/components/ProductTypeCard/ProductTypeCard";
