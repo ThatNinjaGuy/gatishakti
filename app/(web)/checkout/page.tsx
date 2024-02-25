@@ -1,6 +1,8 @@
 "use client";
 
+import MapComponent from "@/app/components/MapComponent/MapComponent";
 import ProductCartList from "@/app/components/ProductCartList/ProductCartList";
+import Link from "next/link";
 import { useState } from "react";
 
 const Checkout = () => {
@@ -19,7 +21,15 @@ const Checkout = () => {
         </div>
 
         {/* Right side - Delivery and Payment Options */}
-        <div className="w-1/2 ml-4">
+        <div className="w-1/2 ml-4 ">
+          <Link href={`/checkout`}>
+            <button
+              // onClick={handleBookNowClick}
+              className="mb-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
+            >
+              {"Place Order"}
+            </button>
+          </Link>
           {/* Payment Options */}
           <div className={`mb-5 ${shadowStyle} rounded-lg p-5`}>
             <label className="block font-semibold mb-3">Make Payment</label>
@@ -76,41 +86,43 @@ const Checkout = () => {
             {/* Conditionally render the delivery customization options */}
             {primaryDeliveryOption === "home" && (
               <div className="mt-4 p-4 border rounded-md bg-gray-50">
-                <p className="text-lg font-semibold mb-3">
-                  Customize your delivery:
-                </p>
-                <div className="space-y-2">
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="radio"
-                      name="deliveryType"
-                      className="form-radio h-5 w-5"
-                      value="standard"
-                    />
-                    <span>Standard Delivery</span>
-                  </label>
-                  <label className="flex items-center space-x-3">
-                    <input
-                      type="radio"
-                      name="deliveryType"
-                      className="form-radio h-5 w-5"
-                      value="express"
-                    />
-                    <span>Express Delivery</span>
-                  </label>
+                <div>
+                  <p className="text-lg font-semibold mb-3">
+                    Customize your delivery:
+                  </p>
+                  <div className="space-y-2">
+                    <label className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        name="deliveryType"
+                        className="form-radio h-5 w-5"
+                        value="standard"
+                      />
+                      <span>Standard Delivery (Get it tomorrow by 10 AM)</span>
+                    </label>
+                    <label className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        name="deliveryType"
+                        className="form-radio h-5 w-5"
+                        value="express"
+                      />
+                      <span>Express Delivery (Get it ASAP)</span>
+                    </label>
+                  </div>
                 </div>
+                <div
+                  className={`flex flex-col items-center mt-5 ${shadowStyle} p-5 rounded-lg`}
+                >
+                  <label className="font-semibold self-start mb-2 w-full">
+                    Address
+                  </label>
+                  <button className={buttonStyle}>Add Address</button>
+                </div>
+
+                <MapComponent />
               </div>
             )}
-          </div>
-
-          {/* Address Section */}
-          <div
-            className={`flex flex-col items-center mt-5 ${shadowStyle} p-5 rounded-lg`}
-          >
-            <label className="font-semibold self-start mb-2 w-full">
-              Address
-            </label>
-            <button className={buttonStyle}>Add Address</button>
           </div>
         </div>
       </div>

@@ -7,7 +7,6 @@ import { CartItem } from "@/app/context/ProductCountContext";
 import Link from "next/link";
 
 type Props = {
-  // handleBookNowClick: () => void;
   productCartList: Map<String, CartItem>;
 };
 
@@ -35,19 +34,10 @@ const BuyProductsCta: FC<Props> = (props) => {
       <ProductCartList />
 
       <Link href={`/checkout`}>
-        <button
-          // onClick={handleBookNowClick}
-          className="mt-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
-        >
+        <button className="mt-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed">
           {"Buy Now"}
         </button>
       </Link>
-      {/* <Link
-        href={`/materials`}
-        className="mt-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
-      >
-        Buy Now
-      </Link> */}
     </div>
   );
 };
