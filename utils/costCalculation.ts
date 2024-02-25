@@ -13,3 +13,15 @@ export const calculateCostFromProductCount = (
   }
   return cartValue;
 };
+
+export const getProductCountFromCartList = (
+  productCartList: Map<String, CartItem>
+) => {
+  let count = 0;
+  if (productCartList) {
+    productCartList.forEach(({ productCount }) => {
+      count += productCount;
+    });
+  }
+  return count;
+};
