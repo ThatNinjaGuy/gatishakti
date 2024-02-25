@@ -18,7 +18,7 @@ const ProductCounter: FC<Props> = (props) => {
       >
         <span className="text-3xl">-</span>
       </button>
-      <span className="text-2xl font-semibold">{value}</span>
+      <span className="text-2xl font-semibold px-2">{value}</span>
       <button
         className="rounded-full bg-green-100 text-green-500 w-9 h-9 flex items-center justify-center"
         onClick={onIncrement}

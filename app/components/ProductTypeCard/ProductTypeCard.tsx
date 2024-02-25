@@ -1,24 +1,22 @@
 import { ProductType } from "@/models/productDetails";
 import { shortenDisplayText } from "@/utils/textProcessing";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import ProductCounter from "../ProductCounter/ProductCounter";
 
 type Props = {
   room: ProductType;
   productCount: number | null;
-  increaseProductCount: () => void;
-  decreaseProductCount: () => void;
+  increaseProductCount: (productKey: string) => void;
+  decreaseProductCount: (productKey: string) => void;
 };
 
 const ProductTypeCard: FC<Props> = (props) => {
   const {
-    room: { name, price, description },
+    room: { name, price, description, sellingMetric },
     productCount,
     decreaseProductCount,
     increaseProductCount,
   } = props;
-
-  console.log(productCount);
 
   return (
     <div
@@ -42,27 +40,27 @@ const ProductTypeCard: FC<Props> = (props) => {
             <div className="col-span-2">
               <ProductCounter
                 value={productCount ?? 0}
-                onDecrement={decreaseProductCount}
-                onIncrement={increaseProductCount}
+                onDecrement={() => decreaseProductCount(name)}
+                onIncrement={() => increaseProductCount(name)}
               />
             </div>{" "}
             <span className="col-span-1 flex justify-center items-center">
-              Trailers
+              {sellingMetric}
             </span>
           </div>
           <div className="w-full border-b-2 border-b-secondary my-2" />
           <div className="grid grid-cols-2">
             <span className="col-span-1 italic font-light">@ ₹{price}</span>
             <span className="col-span-1 flex justify-end items-center font-semibold">
-              Tot: ₹{price}
+              Tot: ₹{productCount ? price * productCount : 0}
             </span>
           </div>
         </div>
-        <div className="bg-primary mt-4 text-center w-full py-3 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center">
+        {/* <div className="bg-primary mt-4 text-center w-full py-3 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center">
           <div className="inline-flex items-center">
             <span className="text-xl mr-2">{"Add to Cart"}</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
