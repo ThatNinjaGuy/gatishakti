@@ -32,7 +32,7 @@ const Checkout = () => {
           </Link>
           {/* Payment Options */}
           <div className={`mb-5 ${shadowStyle} rounded-lg p-5`}>
-            <label className="block font-semibold mb-3">Make Payment</label>
+            <label className="block font-semibold mb-3 ">Make Payment</label>
             <div className="flex items-center space-x-5">
               <label className="flex items-center space-x-2">
                 <input

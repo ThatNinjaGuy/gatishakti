@@ -2,15 +2,19 @@
 // import React from "react";
 import Link from "next/link";
 import { useContext } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import ThemeContext from "../../context/themeContext";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useProductCartList } from "@/app/context/ProductCountContext";
+import { getProductCountFromCartList } from "@/utils/costCalculation";
 
 // Header for every page for creating navigation
 const Header = () => {
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
+  const { productCartList } = useProductCartList();
+  const productCount = getProductCountFromCartList(productCartList);
 
   const { data: session } = useSession();
 
@@ -62,6 +66,18 @@ const Header = () => {
                 }}
               />
             )}
+          </li>
+          <li className="ml-2 relative">
+            <Link href="/checkout">
+              <FaShoppingCart className="cursor-pointer" />
+              {productCount > 0 ? (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center p-0.5 text-sm font-bold leading-none text-red-600 transform translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-100">
+                  {productCount}
+                </span>
+              ) : (
+                ""
+              )}
+            </Link>
           </li>
         </ul>
       </div>
