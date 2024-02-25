@@ -56,11 +56,11 @@ const ProductTypeCard: FC<Props> = (props) => {
             </span>
           </div>
         </div>
-        <div className="bg-primary mt-4 text-center w-full py-3 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center">
+        {/* <div className="bg-primary mt-4 text-center w-full py-3 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center">
           <div className="inline-flex items-center">
             <span className="text-xl mr-2">{"Add to Cart"}</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

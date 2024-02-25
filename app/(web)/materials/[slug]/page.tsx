@@ -7,25 +7,44 @@ import BuyProductsCta from "@/app/components/BuyProductsCta/BuyProductsCta";
 import YouTubeEmbed from "@/app/components/YoutubeVideoPlayer/YoutubeVideoPlayer";
 import Image from "next/image";
 import ProductTypeCard from "@/app/components/ProductTypeCard/ProductTypeCard";
-import { useProductCountMap } from "@/app/context/ProductCountContext";
+import {
+  CartItem,
+  useProductCartList,
+} from "@/app/context/ProductCountContext";
+import { ProductType } from "@/models/productDetails";
 
 const RoomDetails = (props: { params: { slug: string } }) => {
-  const { productCountMap, updateProductCountMap, removeProduct } =
-    useProductCountMap();
+  const { productCartList, updateProductCartList, removeProductFromCartList } =
+    useProductCartList();
 
   const {
     params: { slug },
   } = props;
 
-  const increaseProductCount = (productKey: string) => {
-    const currentCount = productCountMap.get(productKey) ?? 0;
-    updateProductCountMap(productKey, currentCount + 1);
+  const increaseProductCount = (
+    productKey: string,
+    productType: ProductType
+  ) => {
+    const currentCount = productCartList.get(productKey)?.productCount ?? 0;
+    const updatedCartItem: CartItem = {
+      productType: productType,
+      productCount: currentCount + 1,
+    };
+    updateProductCartList(productKey, updatedCartItem);
   };
 
-  const decreaseProductCount = (productKey: string) => {
-    const currentCount = productCountMap.get(productKey) ?? 0;
-    if (currentCount > 1) updateProductCountMap(productKey, currentCount - 1);
-    else removeProduct(productKey);
+  const decreaseProductCount = (
+    productKey: string,
+    productType: ProductType
+  ) => {
+    const currentCount = productCartList.get(productKey)?.productCount ?? 0;
+    if (currentCount > 1) {
+      const updatedCartItem: CartItem = {
+        productType: productType,
+        productCount: currentCount - 1,
+      };
+      updateProductCartList(productKey, updatedCartItem);
+    } else removeProductFromCartList(productKey);
   };
 
   const fetchRoom = async () => getProductDetails(slug);
@@ -59,12 +78,15 @@ const RoomDetails = (props: { params: { slug: string } }) => {
                     <ProductTypeCard
                       key={productType._key}
                       room={productType}
-                      productCount={productCountMap?.get(productType._key) ?? 0}
+                      productCount={
+                        productCartList?.get(productType._key)?.productCount ??
+                        0
+                      }
                       increaseProductCount={() =>
-                        increaseProductCount(productType._key)
+                        increaseProductCount(productType._key, productType)
                       }
                       decreaseProductCount={() =>
-                        decreaseProductCount(productType._key)
+                        decreaseProductCount(productType._key, productType)
                       }
                     />
                   ))
@@ -97,7 +119,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
             <BuyProductsCta
               // handleBookNowClick={handleBookNowClick}
-              productCartList={productCountMap}
+              productCartList={productCartList}
               increaseProductCount={increaseProductCount}
               decreaseProductCount={decreaseProductCount}
             />

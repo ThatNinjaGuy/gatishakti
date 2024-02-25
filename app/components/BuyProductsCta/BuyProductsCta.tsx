@@ -4,12 +4,14 @@ import { FC } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import ProductCartList from "../ProductCartList/ProductCartList";
 import { calculateCostFromProductCount } from "@/utils/costCalculation";
+import { CartItem } from "@/app/context/ProductCountContext";
+import { ProductType } from "@/models/productDetails";
 
 type Props = {
   // handleBookNowClick: () => void;
-  productCartList: Map<String, number>;
-  increaseProductCount: (productKey: string) => void;
-  decreaseProductCount: (productKey: string) => void;
+  productCartList: Map<String, CartItem>;
+  increaseProductCount: (productKey: string, productType: ProductType) => void;
+  decreaseProductCount: (productKey: string, productType: ProductType) => void;
 };
 
 const BuyProductsCta: FC<Props> = (props) => {
