@@ -8,8 +8,8 @@ import Footer from "../components/footer/Footer";
 import ThemeProvider from "../components/ThemeProvider/ThemeProvider";
 import { NextAuthProvider } from "../components/AuthProvider/AuthProvider";
 import Toast from "../components/Toast/Toast";
-import Header from "../components/Header/Header";
 import { ProductCountProvider } from "../context/ProductCountContext";
+import Header from "../components/header/Header";
 
 // Setting up font for the complete global website
 const poppins = Poppins({
