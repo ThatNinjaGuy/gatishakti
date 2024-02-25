@@ -1,14 +1,13 @@
-import { ProductType } from "@/models/productDetails";
+import { CartItem } from "@/app/context/ProductCountContext";
 
 export const calculateCostFromProductCount = (
-  products: ProductType[],
-  productsCount: Map<String, number>
+  productCartList: Map<String, CartItem>
 ) => {
   let cartValue = 0;
-  if (products && productsCount) {
-    products.forEach((product) => {
-      const count = productsCount.get(product._key) ?? 0;
-      const price = product.price ?? 0;
+  if (productCartList) {
+    productCartList.forEach(({ productCount, productType }) => {
+      const count = productCount;
+      const price = productType.price ?? 0;
       cartValue += count * price;
     });
   }

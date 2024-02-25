@@ -44,7 +44,7 @@ const BuyProductsCta: FC<Props> = (props) => {
         <span className="col-span-1 flex items-center px-2">Total</span>
         <div className="col-span-1 flex items-center justify-center space-x-4 p-1 rounded-lg">
           <span className="text-2xl font-semibold">
-            {/* {"₹" + calculateCostFromProductCount(productTypes, productCount)} */}
+            {"₹" + calculateCostFromProductCount(productCartList)}
           </span>
         </div>
       </div>

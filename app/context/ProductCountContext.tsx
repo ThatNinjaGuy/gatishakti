@@ -8,21 +8,18 @@ export type CartItem = {
   productType: ProductType;
 };
 
-// Define an interface for the context value
 type ProductCountContextType = {
   productCartList: Map<string, CartItem>;
   updateProductCartList: (key: string, value: CartItem) => void;
   removeProductFromCartList: (key: string) => void;
 };
 
-// Provide a default value based on the interface
 const defaultValue: ProductCountContextType = {
   productCartList: new Map<string, CartItem>(),
   updateProductCartList: () => {},
   removeProductFromCartList: () => {},
 };
 
-// Create the context with the default value
 const ProductCountContext =
   createContext<ProductCountContextType>(defaultValue);
 
@@ -38,9 +35,9 @@ export const ProductCountProvider: React.FC<ProductCountProviderProps> = ({
     Map<string, CartItem>
   >(new Map());
 
-  // Function to update the map, with parameters typed
   const updateProductCountMap = (key: string, value: CartItem) => {
     setProductCountList(new Map(productCartList.set(key, value)));
+    // localStorage.setItem("cartList", productCartList.);
   };
 
   // Function to remove a key from the map, with parameters typed

@@ -1,6 +1,6 @@
 import { ProductType } from "@/models/productDetails";
 import { shortenDisplayText } from "@/utils/textProcessing";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import ProductCounter from "../ProductCounter/ProductCounter";
 
 type Props = {
