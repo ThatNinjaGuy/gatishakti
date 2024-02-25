@@ -1,9 +1,9 @@
-import { CreateBookingDto, Room } from "@/models/room";
+import { CreateBookingDto, ProductDetails } from "@/models/productDetails";
 import sanityClient from "./sanity";
 import * as queries from "./sanityQueries";
 import axios from "axios";
 import { Services } from "@/models/services";
-import { ConstructionMaterial } from "@/models/constructtionmaterial";
+import { ConstructionMaterial } from "@/models/constructionMaterial";
 
 export async function getFeaturedServices() {
   const result = await sanityClient.fetch<Services[]>(
@@ -19,16 +19,16 @@ export async function getFeaturedServices() {
 
 export async function getConstructionMaterials() {
   const result = await sanityClient.fetch<ConstructionMaterial[]>(
-    queries.getConstructionMaterialsQueries,
+    queries.getConstructionMaterialsQuery,
     {},
     { cache: "no-cache" }
   );
   return result;
 }
 
-export async function getRoom(slug: string) {
-  const result = await sanityClient.fetch<Room>(
-    queries.getRoom,
+export async function getProductDetails(slug: string) {
+  const result = await sanityClient.fetch<ProductDetails>(
+    queries.getProductDetails,
     { slug },
     { cache: "no-cache" }
   );

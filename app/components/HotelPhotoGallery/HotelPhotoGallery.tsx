@@ -1,5 +1,5 @@
 "use client";
-import { Image as ImageType } from "@/models/room";
+import { Image as ImageType } from "@/models/productDetails";
 import Image from "next/image";
 import { FC, useState } from "react";
 
@@ -34,7 +34,6 @@ const HotelPhotoGallery: FC<{ photos: ImageType[] }> = ({ photos }) => {
   const maximumVisiblePhotos = 5;
   const displayPhotos = photos.slice(1, maximumVisiblePhotos - 1);
   const remainingPhotosCount = totalPhotos - maximumVisiblePhotos;
-  console.log(totalPhotos);
 
   return (
     <div className="container mx-auto">

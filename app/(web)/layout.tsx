@@ -4,11 +4,12 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 
-import Header from "../components/Header/Header";
 import Footer from "../components/footer/Footer";
 import ThemeProvider from "../components/ThemeProvider/ThemeProvider";
 import { NextAuthProvider } from "../components/AuthProvider/AuthProvider";
 import Toast from "../components/Toast/Toast";
+import { ProductCountProvider } from "../context/ProductCountContext";
+import Header from "../components/header/Header";
 
 // Setting up font for the complete global website
 const poppins = Poppins({
@@ -43,11 +44,13 @@ export default function RootLayout({
         <NextAuthProvider>
           <ThemeProvider>
             <Toast />
-            <main className="font-normal">
-              <Header />
-              {children}
-              <Footer />
-            </main>
+            <ProductCountProvider>
+              <main className="font-normal">
+                <Header />
+                {children}
+                <Footer />
+              </main>
+            </ProductCountProvider>
           </ThemeProvider>
         </NextAuthProvider>
       </body>

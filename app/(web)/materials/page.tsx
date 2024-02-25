@@ -3,7 +3,7 @@
 import MarketPlace from "@/app/components/MarketPlace/MarketPlace";
 import Search from "@/app/components/Search/Search";
 import { getConstructionMaterials } from "@/libs/apis";
-import { ConstructionMaterial } from "@/models/constructtionmaterial";
+import { ConstructionMaterial } from "@/models/constructionMaterial";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -19,7 +19,7 @@ const Materials = () => {
     const roomType = searchParams.get("roomType");
     if (roomType) setRoomTypeFilter(roomType);
     if (searchQueryValue) setSearchQuery(searchQueryValue);
-  }, []);
+  }, [searchParams]);
 
   async function fetchConstructionMaterials() {
     return getConstructionMaterials();

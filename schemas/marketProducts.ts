@@ -43,7 +43,7 @@ const marketProducts = {
               name: "slug",
               type: "slug",
               options: {
-                source: (doc, context) => context.parent.name,
+                source: (doc, context) => (context.parent as any).name,
               },
               validation: (Rule) => Rule.required(),
             }),

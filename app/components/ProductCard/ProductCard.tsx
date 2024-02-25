@@ -1,4 +1,4 @@
-import { Product } from "@/models/constructtionmaterial";
+import { Product } from "@/models/constructionMaterial";
 import { shortenDisplayText } from "@/utils/textProcessing";
 import Image from "next/image";
 import Link from "next/link";
