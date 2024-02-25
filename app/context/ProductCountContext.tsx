@@ -1,7 +1,13 @@
 "use client";
 
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { ProductType } from "@/models/productDetails";
-import React, { createContext, useContext, useState, ReactNode } from "react";
 
 export type CartItem = {
   productCount: number;
@@ -31,28 +37,39 @@ type ProductCountProviderProps = {
 export const ProductCountProvider: React.FC<ProductCountProviderProps> = ({
   children,
 }) => {
-  const [productCartList, setProductCountList] = useState<
-    Map<string, CartItem>
-  >(new Map());
+  // Initialize state with local storage or empty Map
+  const [productCartList, setProductCartList] = useState<Map<string, CartItem>>(
+    () => {
+      const storedCartList = localStorage.getItem("cartList");
+      return storedCartList ? new Map(JSON.parse(storedCartList)) : new Map();
+    }
+  );
 
-  const updateProductCountMap = (key: string, value: CartItem) => {
-    setProductCountList(new Map(productCartList.set(key, value)));
-    // localStorage.setItem("cartList", productCartList.);
+  // Update local storage when productCartList changes
+  useEffect(() => {
+    localStorage.setItem(
+      "cartList",
+      JSON.stringify(Array.from(productCartList.entries()))
+    );
+  }, [productCartList]);
+
+  const updateProductCartList = (key: string, value: CartItem) => {
+    const updatedMap = new Map(productCartList.set(key, value));
+    setProductCartList(updatedMap);
   };
 
-  // Function to remove a key from the map, with parameters typed
-  const removeProduct = (key: string) => {
+  const removeProductFromCartList = (key: string) => {
     const newMap = new Map(productCartList);
     newMap.delete(key);
-    setProductCountList(newMap);
+    setProductCartList(newMap);
   };
 
   return (
     <ProductCountContext.Provider
       value={{
         productCartList,
-        updateProductCartList: updateProductCountMap,
-        removeProductFromCartList: removeProduct,
+        updateProductCartList,
+        removeProductFromCartList,
       }}
     >
       {children}
