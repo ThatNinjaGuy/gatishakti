@@ -8,25 +8,13 @@ import { calculateCostFromProductCount } from "@/utils/costCalculation";
 
 type Props = {
   // handleBookNowClick: () => void;
-  productTypes: ProductType[];
-  productCount: Map<String, number>;
+  productCartList: Map<String, number>;
   increaseProductCount: (productKey: string) => void;
   decreaseProductCount: (productKey: string) => void;
-  // increaseProductCount={() =>
-  //   increaseProductCount(productType._key)
-  // }
-  // decreaseProductCount={() =>
-  //   decreaseProductCount(productType._key)
-  // }
 };
 
 const BuyProductsCta: FC<Props> = (props) => {
-  const {
-    productTypes,
-    productCount,
-    increaseProductCount,
-    decreaseProductCount,
-  } = props;
+  const { productCartList, increaseProductCount, decreaseProductCount } = props;
 
   return (
     <div className="px-7 py-6">
@@ -41,8 +29,7 @@ const BuyProductsCta: FC<Props> = (props) => {
         building your home. Order in bulk to save more!
       </h4>
       <ProductCartList
-        productCartList={productTypes}
-        productCount={productCount}
+        productCartList={productCartList}
         increaseProductCount={increaseProductCount}
         decreaseProductCount={decreaseProductCount}
       />
@@ -50,7 +37,7 @@ const BuyProductsCta: FC<Props> = (props) => {
         <span className="col-span-1 flex items-center px-2">Total</span>
         <div className="col-span-1 flex items-center justify-center space-x-4 p-1 rounded-lg">
           <span className="text-2xl font-semibold">
-            {"₹" + calculateCostFromProductCount(productTypes, productCount)}
+            {/* {"₹" + calculateCostFromProductCount(productTypes, productCount)} */}
           </span>
         </div>
       </div>

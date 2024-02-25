@@ -98,8 +98,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
           <div className="md:col-span-4 rounded-xl shadow-lg dark:shadow dark:shadow-white sticky top-10 h-fit overflow-auto">
             <BuyProductsCta
               // handleBookNowClick={handleBookNowClick}
-              productTypes={product.productTypes}
-              productCount={productCountMap}
+              productCartList={productCountMap}
               increaseProductCount={increaseProductCount}
               decreaseProductCount={decreaseProductCount}
             />

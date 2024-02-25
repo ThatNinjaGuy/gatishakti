@@ -1,44 +1,35 @@
 "use client";
 
-import { ProductType } from "@/models/productDetails";
 import { FC } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import ProductCounter from "../ProductCounter/ProductCounter";
 
 type Props = {
-  productCartList: ProductType[];
-  productCount: Map<String, number>;
+  productCartList: Map<String, number>;
   increaseProductCount: (productKey: string) => void;
   decreaseProductCount: (productKey: string) => void;
 };
 
 const ProductCartList: FC<Props> = (props) => {
-  const {
-    productCartList,
-    productCount,
-    increaseProductCount,
-    decreaseProductCount,
-  } = props;
+  const { productCartList, increaseProductCount, decreaseProductCount } = props;
 
   return (
     <div>
-      {productCartList.map((product) => (
+      {Array.from(productCartList.entries()).map(([key, value]) => (
         <div
-          key={product._key}
+          key={key.toString()}
           className="mt-5 grid grid-cols-2 gap-4 bg-white shadow-md"
         >
           <div className="col-span-1 ">
-            <span className="flex items-center px-2 font-semibold">
-              {product.name}
-            </span>
+            <span className="flex items-center px-2 font-semibold">{key}</span>
             <span className="flex items-center px-2 font-light italic">
-              @ {product.price}
+              @ {value}
             </span>
           </div>
           <ProductCounter
-            value={productCount.get(product._key) ?? 0}
-            onIncrement={() => increaseProductCount(product._key)}
-            onDecrement={() => decreaseProductCount(product._key)}
+            value={value ?? 0}
+            onIncrement={() => increaseProductCount(key.toString())}
+            onDecrement={() => decreaseProductCount(key.toString())}
           />
         </div>
       ))}
