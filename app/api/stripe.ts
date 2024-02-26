@@ -47,29 +47,3 @@ export default async function handler(
     res.status(405).end("Method Not Allowed");
   }
 }
-
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   if (req.method === "POST") {
-//     try {
-//       // Your logic to create a checkout session goes here
-//       const session = await stripe.checkout.sessions.create({
-//         payment_method_types: ["card"],
-//         line_items: req.body.items, // Ensure this matches the structure you're sending from the frontend
-//         mode: "payment",
-//         success_url: "http://localhost:3000/", // Update with your success URL
-//         cancel_url: "http://localhost:3000/", // Update with your cancel URL
-//       });
-
-//       res.status(200).json({ sessionId: session.id });
-//     } catch (error: any) {
-//       console.error(error);
-//       res.status(500).json({ error: error.message });
-//     }
-//   } else {
-//     res.setHeader("Allow", ["POST"]);
-//     res.status(405).end("Method Not Allowed");
-//   }
-// }

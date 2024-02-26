@@ -18,7 +18,7 @@ const ProductCartList = () => {
         ([key, { productCount, productType }]) => (
           <div
             key={key.toString()}
-            className="mb-5 grid grid-cols-2 gap-4 bg-white shadow-md"
+            className="p-1 mb-5 grid grid-cols-2 gap-4 bg-white shadow-md rounded-sm"
           >
             <div className="col-span-1 ">
               <span className="flex items-center px-2 font-semibold">

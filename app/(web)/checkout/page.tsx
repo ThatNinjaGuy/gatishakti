@@ -17,37 +17,12 @@ export const getStripe = () => {
   return stripePromise;
 };
 
-//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
-// );
-// console.log(stripePromise);
 const Checkout = () => {
-  //   const [clientSecret, setClientSecret] = useState(stripePromise);
   const [primaryDeliveryOption, setPrimaryDeliveryOption] = useState("");
 
   const shadowStyle = "shadow-lg"; // softer shadow
   const buttonStyle =
     "bg-tertiary-dark text-white px-6 py-2 lg:py-2 rounded-full font-bold transition duration-300 ease-in-out hover:bg-tertiary-darker";
-
-  //   useEffect(() => {
-  //     // Create PaymentIntent as soon as the page loads
-  //     fetch("/api/create-payment-intent", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => setClientSecret(data.clientSecret))
-  //       .catch((err) => console.error(err))
-  //       .finally(() => setClientSecret(stripePromise));
-  //   }, []);
-
-  // const appearance = {
-  //   theme: "stripe",
-  // };
-  // const options = {
-  //   clientSecret,
-  //   appearance,
-  // };
 
   const handleCheckoutClick = async () => {
     const stripe = await getStripe();
@@ -71,17 +46,24 @@ const Checkout = () => {
     }
   };
 
-  // console.log(clientSecret);
   return (
     <div className="container mx-auto px-4 py-6">
-      <div className={`flex flex-row ${shadowStyle} p-5 rounded-lg bg-white`}>
+      <div
+        className={`md:grid md:grid-cols-12 ${shadowStyle} p-5 rounded-lg bg-white`}
+      >
         {/* Left side - Product Cart List */}
-        <div className="flex-1 pr-4">
+        <div className="md:col-span-4 pr-4">
+          <h3>
+            <span className="font-bold text-xl text-tertiary-dark ">
+              Your Cart
+            </span>
+          </h3>
+          <div className="w-full border-b-2 border-b-secondary mt-2 mb-5" />
           <ProductCartList />
         </div>
 
         {/* Right side - Delivery and Payment Options */}
-        <div className="w-1/2 ml-4 ">
+        <div className="md:col-span-8 ml-4 mt-4">
           <Link href={`/checkout`}>
             <button
               onClick={handleCheckoutClick}
@@ -183,9 +165,6 @@ const Checkout = () => {
                 <MapComponent />
               </div>
             )}
-            {/* <Elements stripe={stripePromise}>
-              <CheckoutForm />
-            </Elements> */}
           </div>
         </div>
       </div>
