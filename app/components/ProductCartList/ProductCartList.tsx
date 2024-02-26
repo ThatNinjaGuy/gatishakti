@@ -18,7 +18,7 @@ const ProductCartList = () => {
         ([key, { productCount, productType }]) => (
           <div
             key={key.toString()}
-            className="p-1 mb-5 grid grid-cols-2 gap-4 bg-white shadow-md rounded-sm"
+            className="p-1 mb-5 grid grid-cols-2 gap-4 dark:bg-slate-800 shadow-md rounded-sm"
           >
             <div className="col-span-1 ">
               <span className="flex items-center px-2 font-semibold">
@@ -28,25 +28,27 @@ const ProductCartList = () => {
                 @ {productType.price}
               </span>
             </div>
-            <ProductCounter
-              value={productCount ?? 0}
-              onIncrement={() => {
-                const updatedCartItem: CartItem = {
-                  productType: productType,
-                  productCount: productCount + 1,
-                };
-                updateProductCartList(key.toString(), updatedCartItem);
-              }}
-              onDecrement={() => {
-                if (productCount > 1) {
+            <div className="flex items-center">
+              <ProductCounter
+                value={productCount ?? 0}
+                onIncrement={() => {
                   const updatedCartItem: CartItem = {
                     productType: productType,
-                    productCount: productCount - 1,
+                    productCount: productCount + 1,
                   };
-                  updateProductCartList(key, updatedCartItem);
-                } else removeProductFromCartList(key);
-              }}
-            />
+                  updateProductCartList(key.toString(), updatedCartItem);
+                }}
+                onDecrement={() => {
+                  if (productCount > 1) {
+                    const updatedCartItem: CartItem = {
+                      productType: productType,
+                      productCount: productCount - 1,
+                    };
+                    updateProductCartList(key, updatedCartItem);
+                  } else removeProductFromCartList(key);
+                }}
+              />
+            </div>
           </div>
         )
       )}

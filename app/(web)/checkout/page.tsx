@@ -49,7 +49,7 @@ const Checkout = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       <div
-        className={`md:grid md:grid-cols-12 ${shadowStyle} p-5 rounded-lg bg-white`}
+        className={`md:grid md:grid-cols-12 ${shadowStyle} dark:bg-slate-600 p-5 rounded-lg`}
       >
         {/* Left side - Product Cart List */}
         <div className="md:col-span-4 pr-4">
@@ -58,12 +58,15 @@ const Checkout = () => {
               Your Cart
             </span>
           </h3>
-          <div className="w-full border-b-2 border-b-secondary mt-2 mb-5" />
-          <ProductCartList />
+          {/* <div className="w-full border-b-2 border-b-secondary mt-2 mb-5" /> */}
+          <div className=" rounded-md mt-2">
+            <ProductCartList />
+          </div>
+          {/* <div className="w-full border-b-2 border-b-secondary mt-2 mb-5" /> */}
         </div>
 
         {/* Right side - Delivery and Payment Options */}
-        <div className="md:col-span-8 ml-4 mt-4">
+        <div className="md:col-span-8 ml-4 mt-4 ">
           <Link href={`/checkout`}>
             <button
               onClick={handleCheckoutClick}
@@ -127,7 +130,7 @@ const Checkout = () => {
 
             {/* Conditionally render the delivery customization options */}
             {primaryDeliveryOption === "home" && (
-              <div className="mt-4 p-4 border rounded-md bg-gray-50">
+              <div className="mt-4 p-4 border rounded-md">
                 <div>
                   <p className="text-lg font-semibold mb-3">
                     Customize your delivery:
