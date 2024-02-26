@@ -4,14 +4,74 @@ import MapComponent from "@/app/components/MapComponent/MapComponent";
 import ProductCartList from "@/app/components/ProductCartList/ProductCartList";
 import Link from "next/link";
 import { useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 
+let stripePromise: any;
+
+export const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+    );
+  }
+  return stripePromise;
+};
+
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+// );
+// console.log(stripePromise);
 const Checkout = () => {
+  //   const [clientSecret, setClientSecret] = useState(stripePromise);
   const [primaryDeliveryOption, setPrimaryDeliveryOption] = useState("");
 
   const shadowStyle = "shadow-lg"; // softer shadow
   const buttonStyle =
     "bg-tertiary-dark text-white px-6 py-2 lg:py-2 rounded-full font-bold transition duration-300 ease-in-out hover:bg-tertiary-darker";
 
+  //   useEffect(() => {
+  //     // Create PaymentIntent as soon as the page loads
+  //     fetch("/api/create-payment-intent", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => setClientSecret(data.clientSecret))
+  //       .catch((err) => console.error(err))
+  //       .finally(() => setClientSecret(stripePromise));
+  //   }, []);
+
+  // const appearance = {
+  //   theme: "stripe",
+  // };
+  // const options = {
+  //   clientSecret,
+  //   appearance,
+  // };
+
+  const handleCheckoutClick = async () => {
+    const stripe = await getStripe();
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Include any additional data you want to pass to the API like product info
+      body: JSON.stringify({
+        /* Your cart items and any other data needed */
+      }),
+    });
+    console.log(response);
+    // if (response.ok) stripe.redirectToCheckout({ sessionId: "lkmlkmklmlkmlk" });
+    const session = await response.json();
+    if (response.ok) {
+      stripe.redirectToCheckout({ sessionId: session.id });
+    } else {
+      // Handle errors here
+    }
+  };
+
+  // console.log(clientSecret);
   return (
     <div className="container mx-auto px-4 py-6">
       <div className={`flex flex-row ${shadowStyle} p-5 rounded-lg bg-white`}>
@@ -24,7 +84,7 @@ const Checkout = () => {
         <div className="w-1/2 ml-4 ">
           <Link href={`/checkout`}>
             <button
-              // onClick={handleBookNowClick}
+              onClick={handleCheckoutClick}
               className="mb-5 btn-primary w-full disabled:bg-gray-500 disabled:cursor-not-allowed"
             >
               {"Place Order"}
@@ -123,6 +183,9 @@ const Checkout = () => {
                 <MapComponent />
               </div>
             )}
+            {/* <Elements stripe={stripePromise}>
+              <CheckoutForm />
+            </Elements> */}
           </div>
         </div>
       </div>
