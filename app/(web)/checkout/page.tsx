@@ -4,45 +4,34 @@ import MapComponent from "@/app/components/MapComponent/MapComponent";
 import ProductCartList from "@/app/components/ProductCartList/ProductCartList";
 import Link from "next/link";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-
-let stripePromise: any;
-
-export const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
-    );
-  }
-  return stripePromise;
-};
+import axios from "axios";
+import { getStripe } from "@/libs/stripe";
+import { toast } from "react-hot-toast";
 
 const Checkout = () => {
   const [primaryDeliveryOption, setPrimaryDeliveryOption] = useState("");
 
-  const shadowStyle = "shadow-lg"; // softer shadow
+  const shadowStyle = "shadow-lg";
   const buttonStyle =
     "bg-tertiary-dark text-white px-6 py-2 lg:py-2 rounded-full font-bold transition duration-300 ease-in-out hover:bg-tertiary-darker";
 
   const handleCheckoutClick = async () => {
     const stripe = await getStripe();
-    const response = await fetch("/api/stripe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Include any additional data you want to pass to the API like product info
-      body: JSON.stringify({
-        /* Your cart items and any other data needed */
-      }),
-    });
-    console.log(response);
-    // if (response.ok) stripe.redirectToCheckout({ sessionId: "lkmlkmklmlkmlk" });
-    const session = await response.json();
-    if (response.ok) {
-      stripe.redirectToCheckout({ sessionId: session.id });
-    } else {
-      // Handle errors here
+    try {
+      const total = 1400;
+      const { data: stripeSession } = await axios.post("/api/stripe", {
+        total,
+      });
+      if (stripe) {
+        const result = await stripe.redirectToCheckout({
+          sessionId: stripeSession.id,
+        });
+        if (result.error) {
+          toast.error("Payment Failed");
+        }
+      }
+    } catch (err) {
+      console.log("Payment error: ", err);
     }
   };
 
