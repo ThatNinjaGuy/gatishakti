@@ -13,7 +13,7 @@ import {
 } from "@/app/context/ProductCountContext";
 import { ProductType } from "@/models/productDetails";
 
-const RoomDetails = (props: { params: { slug: string } }) => {
+const ProductDetail = (props: { params: { slug: string } }) => {
   const { productCartList, updateProductCartList, removeProductFromCartList } =
     useProductCartList();
 
@@ -128,4 +128,4 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   );
 };
 
-export default RoomDetails;
+export default ProductDetail;

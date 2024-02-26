@@ -22,12 +22,12 @@ const BuyProductsCta: FC<Props> = (props) => {
       </h3>
       <div className="w-full border-b-2 border-b-secondary my-2" />
       {productCartList && productCartList.size > 0 ? (
-        <h4 className=" text-gray-900 dark:text-gray-400 pt-2">
+        <h4 className=" text-gray-900 dark:text-gray-400 pt-2 pb-3">
           Get the best quality service to have a hassle free experience in
           building your home. Order in bulk to save more!
         </h4>
       ) : (
-        <h4 className=" text-gray-900 dark:text-gray-400 pt-2">
+        <h4 className=" text-gray-900 dark:text-gray-400 pt-2 pb-3">
           Add our products and services to start building your home.
         </h4>
       )}
