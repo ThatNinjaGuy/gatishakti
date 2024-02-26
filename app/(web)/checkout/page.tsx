@@ -22,15 +22,20 @@ const Checkout = () => {
       const { data: stripeSession } = await axios.post("/api/stripe", {
         total,
       });
-      if (stripe) {
+      if (stripe && stripeSession && stripeSession.id) {
         const result = await stripe.redirectToCheckout({
           sessionId: stripeSession.id,
         });
         if (result.error) {
           toast.error("Payment Failed");
         }
+      } else {
+        toast.error("Please login to checkout");
       }
     } catch (err) {
+      // if (err.status === 401) {
+      //   console.log
+      // }
       console.log("Payment error: ", err);
     }
   };
