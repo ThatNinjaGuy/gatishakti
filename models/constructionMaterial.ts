@@ -21,8 +21,6 @@ export type Product = {
   sellingMetric: string;
   description: string;
   coverImage: CoverImage;
-  specialNote: string;
-  discount: number;
 };
 
 export type MarketProduct = {

@@ -84,27 +84,6 @@ const marketProducts = {
               validation: (Rule) =>
                 Rule.required().error("Cover Image is required"),
             },
-            {
-              name: "reviews",
-              title: "Reviews",
-              type: "array",
-              of: [{ type: "review" }],
-            },
-            {
-              name: "specialNote",
-              title: "Special Note",
-              type: "text",
-              validation: (Rule) => Rule.required(),
-              initialValue:
-                "Still confused? Call us to get your doubts clarified",
-            },
-            {
-              name: "discount",
-              title: "Discount",
-              type: "number",
-              initialValue: 0,
-              validation: (Rule) => Rule.min(0),
-            },
           ],
         },
       ],
