@@ -30,5 +30,6 @@ export const getFeaturedServicesQuery = groq`*[_type=="featuredServices" && isAc
     metric2TrailingText,
     images,
     coverImage,
-    hookText
+    hookText,
+    navigation_url
 }`;

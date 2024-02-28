@@ -112,6 +112,13 @@ const featuredServices = {
       validation: (Rule) => Rule.required(),
       initialValue: "Know More",
     }),
+    defineField({
+      name: "navigation_url",
+      title: "Navigate to URL",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+      initialValue: "materials",
+    }),
   ],
 };
 
