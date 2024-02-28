@@ -34,6 +34,7 @@ export type Services = {
   images: Image[];
   coverImage: CoverImage;
   hookText: string;
+  navigation_url: string;
 };
 
 export type CreateBookingDto = {
