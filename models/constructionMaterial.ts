@@ -25,9 +25,10 @@ export type Product = {
   discount: number;
 };
 
-export type ConstructionMaterial = {
+export type MarketProduct = {
   _id: string;
   rank: number;
   name: string;
+  serviceCategory: string;
   products: Product[];
 };

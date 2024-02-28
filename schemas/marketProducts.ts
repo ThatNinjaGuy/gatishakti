@@ -20,6 +20,13 @@ const marketProducts = {
         Rule.required().max(50).error("Maximum 50 Characters"),
     }),
     defineField({
+      name: "serviceCategory",
+      title: "L1 Category of the service",
+      type: "string",
+      validation: (Rule) =>
+        Rule.required().max(50).error("Maximum 50 Characters"),
+    }),
+    defineField({
       name: "products",
       title: "Products",
       type: "array",

@@ -89,7 +89,7 @@ const Header = () => {
           <Link href="/materials">Raw Materials</Link>
         </li>
         <li className="hover:-translate-y-2 duration-500 transition-all">
-          <Link href="/">Services</Link>
+          <Link href="/services">Services</Link>
         </li>
       </ul>
     </header>

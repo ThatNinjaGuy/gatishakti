@@ -3,7 +3,7 @@
 import MarketPlace from "@/app/components/MarketPlace/MarketPlace";
 import Search from "@/app/components/Search/Search";
 import { getConstructionMaterials } from "@/libs/apis";
-import { ConstructionMaterial } from "@/models/constructionMaterial";
+import { MarketProduct } from "@/models/constructionMaterial";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -33,7 +33,7 @@ const Materials = () => {
   if (typeof data === "undefined" && !isLoading)
     throw new Error("Cannot fetch construction materials!");
 
-  const filterMaterials = (materials: ConstructionMaterial[]) => {
+  const filterMaterials = (materials: MarketProduct[]) => {
     // return rooms.filter((room) => {
     //   // Apply room filters and search criterias
     //   if (
