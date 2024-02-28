@@ -29,16 +29,16 @@ const ProductCard: FC<Props> = (props) => {
           className="img scale-animation"
         />
       </div>
-      <div className="flex flex-col justify-between flex-grow p-4 bg-white">
+      <div className="flex flex-col justify-between flex-grow p-4 bg-white dark:bg-gray-500 ">
         <div>
           <div className="flex justify-between text-xl font-semibold">
             <p>{name}</p>
           </div>
-          <p className="pt-3 pb-6">{shortenDisplayText(description, 150)}</p>
+          <p className="pt-3 pb-5">{shortenDisplayText(description, 145)}</p>
         </div>
         <Link
           href={`/materials/${slug.current}`}
-          className="bg-primary mt-4 text-center w-full py-4 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center"
+          className="bg-primary text-center w-full py-4 rounded-xl text-white font-bold hover:translate-y-2 hover:shadow-lg transition-all duration-500 flex flex-col items-center justify-center"
         >
           <span className="text-base mb-2">Range starts from</span>
           <div className="inline-flex items-center">

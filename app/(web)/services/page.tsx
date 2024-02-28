@@ -26,7 +26,7 @@ const Services = () => {
   }
 
   const { data, error, isLoading } = useSWR(
-    "get/marketProducts",
+    "get/marketProducts/constructionServices",
     fetchConstructionServices
   );
   if (error) throw new Error("Cannot fetch construction materials!");
