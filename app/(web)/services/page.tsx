@@ -2,14 +2,14 @@
 
 import MarketPlace from "@/app/components/MarketPlace/MarketPlace";
 import Search from "@/app/components/Search/Search";
-import { getConstructionMaterials } from "@/libs/apis";
+import { getConstructionMaterials, getConstructionServices } from "@/libs/apis";
 import { MarketProduct } from "@/models/constructionMaterial";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import useSWR from "swr";
 
-const Materials = () => {
+const Services = () => {
   const [roomTypeFilter, setRoomTypeFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const searchParams = useSearchParams();
@@ -21,13 +21,13 @@ const Materials = () => {
     if (searchQueryValue) setSearchQuery(searchQueryValue);
   }, [searchParams]);
 
-  async function fetchConstructionMaterials() {
-    return getConstructionMaterials();
+  async function fetchConstructionServices() {
+    return getConstructionServices();
   }
 
   const { data, error, isLoading } = useSWR(
     "get/marketProducts",
-    fetchConstructionMaterials
+    fetchConstructionServices
   );
   if (error) throw new Error("Cannot fetch construction materials!");
   if (typeof data === "undefined" && !isLoading)
@@ -71,4 +71,4 @@ const Materials = () => {
   );
 };
 
-export default Materials;
+export default Services;

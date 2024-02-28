@@ -20,6 +20,13 @@ const marketProducts = {
         Rule.required().max(50).error("Maximum 50 Characters"),
     }),
     defineField({
+      name: "serviceCategory",
+      title: "L1 Category of the service",
+      type: "string",
+      validation: (Rule) =>
+        Rule.required().max(50).error("Maximum 50 Characters"),
+    }),
+    defineField({
       name: "products",
       title: "Products",
       type: "array",
@@ -76,27 +83,6 @@ const marketProducts = {
               ],
               validation: (Rule) =>
                 Rule.required().error("Cover Image is required"),
-            },
-            {
-              name: "reviews",
-              title: "Reviews",
-              type: "array",
-              of: [{ type: "review" }],
-            },
-            {
-              name: "specialNote",
-              title: "Special Note",
-              type: "text",
-              validation: (Rule) => Rule.required(),
-              initialValue:
-                "Still confused? Call us to get your doubts clarified",
-            },
-            {
-              name: "discount",
-              title: "Discount",
-              type: "number",
-              initialValue: 0,
-              validation: (Rule) => Rule.min(0),
             },
           ],
         },

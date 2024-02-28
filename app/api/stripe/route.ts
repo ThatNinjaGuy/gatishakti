@@ -14,10 +14,10 @@ type RequestData = {
 
 export async function POST(req: Request, res: Response) {
   const { total }: RequestData = await req.json();
-
   if (!total) {
-    return new NextResponse("Please all fields are required", { status: 400 });
+    return new NextResponse("Cart is empty", { status: 400 });
   }
+
   const origin = req.headers.get("origin");
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -35,12 +35,13 @@ export async function POST(req: Request, res: Response) {
           price_data: {
             currency: "inr",
             product_data: {
-              name: "Sand",
+              name: "Please make the payment to complete your order",
             },
-            unit_amount: 200000,
+            unit_amount: total * 100,
           },
         },
       ],
+      //   line_items: lineItems,
       payment_method_types: ["card"],
       success_url: `${origin}/users/${userId}`,
       shipping_address_collection: {
